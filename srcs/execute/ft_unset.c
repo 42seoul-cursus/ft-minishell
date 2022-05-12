@@ -1,35 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_export_util.c                                   :+:      :+:    :+:   */
+/*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hkim2 <hkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/12 21:43:58 by hkim2             #+#    #+#             */
-/*   Updated: 2022/05/12 23:00:42 by hkim2            ###   ########.fr       */
+/*   Created: 2022/05/12 22:12:29 by hkim2             #+#    #+#             */
+/*   Updated: 2022/05/12 22:20:22 by hkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../../includes/minishell.h"
 
-void	free_split_str(char **str)
+int	ft_unset(t_cmd *cmd_list, char ***env)
 {
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		free(str[i]);
-		i++;
-	}
-	free(str);
-}
-
-int	is_vaild_word(char c)
-{
-	if ((c >= 65 && c <= 90) || (c >= 97 && c <= 122))
-		return (1);
-	if (c == '_')
-		return (1);
-	return (0);
+	if (get_cmd_size(cmd_list) == 1)
+		return (EXIT_SUCCESS);
 }

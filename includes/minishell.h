@@ -6,7 +6,7 @@
 /*   By: hkim2 <hkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 13:57:07 by jeonghwl          #+#    #+#             */
-/*   Updated: 2022/05/12 21:52:31 by hkim2            ###   ########.fr       */
+/*   Updated: 2022/05/12 23:01:06 by hkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,4 +214,5 @@ void				add_env(char *cmd, char ***env);
 
 //execute/export_util
 void				free_split_str(char **str);
+int					is_vaild_word(char c);
 #endif
