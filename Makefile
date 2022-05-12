@@ -6,7 +6,7 @@
 #    By: hkim2 <hkim2@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/12 14:11:43 by jeonghwl          #+#    #+#              #
-#    Updated: 2022/05/12 18:24:19 by hkim2            ###   ########.fr        #
+#    Updated: 2022/05/12 21:45:35 by hkim2            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,6 +42,7 @@ SRC 		= 	srcs/ft_tmp.c \
 				srcs/execute/ft_env.c \
 				srcs/execute/ft_pwd.c \
 				srcs/execute/ft_export.c \
+				srcs/execite/ft_export_util.c \
 
 				
 				

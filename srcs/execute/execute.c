@@ -6,7 +6,7 @@
 /*   By: hkim2 <hkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 19:43:23 by hkim2             #+#    #+#             */
-/*   Updated: 2022/05/12 18:24:48 by hkim2            ###   ########.fr       */
+/*   Updated: 2022/05/12 21:40:20 by hkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,15 +36,13 @@ int	get_cmd_size(t_cmd *cmd_list)
 	return (i);
 }
 
-void	execute(t_cmd *cmd_list, char **env)
+void	execute(t_cmd *cmd_list, char ***env)
 {
 	int	i;
 	char	**path;
 
-	path = get_cmd_path(env);
+	path = get_cmd_path(*env);
 	i = 0;
-	//parse_env_variable(cmd_list, env);
-	//bind_cmds(cmd_list);
 	while (cmd_list)
 	{
 		if (cmd_list->pipe_flag)
@@ -58,6 +56,5 @@ void	execute(t_cmd *cmd_list, char **env)
 		}
 		cmd_list = cmd_list->next;
 	}	
-
 	return ;
 }
