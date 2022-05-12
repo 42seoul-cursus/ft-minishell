@@ -6,7 +6,7 @@
 /*   By: hkim2 <hkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 13:56:13 by jeonghwl          #+#    #+#             */
-/*   Updated: 2022/05/12 18:22:05 by hkim2            ###   ########.fr       */
+/*   Updated: 2022/05/12 21:22:18 by hkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,10 @@ void	ft_free_list(t_cmd *command_list)
 }
 
 void	ft_minishell(char *command, t_cmd **command_list, \
-char **copied_env, char *argv[])
+char ***copied_env, char *argv[])
 {
 	add_history(command);
-	ft_parse(command_list, command, copied_env);
+	ft_parse(command_list, command, *copied_env);
 	execute(*command_list, copied_env);
 	//g_exit_status = exec(*command_list, argv, &copied_env);
 	ft_free_list(*command_list);
@@ -84,7 +84,7 @@ int	main(int argc, char *argv[], char *envp[])
 			return (0);
 		}
 		if (*command != '\0' && !is_whitespace(command))
-			ft_minishell(command, &command_list, copied_env, argv);
+			ft_minishell(command, &command_list, &copied_env, argv);
 		free(command);
 	}
 	(void)argc;
