@@ -6,7 +6,7 @@
 /*   By: hkim2 <hkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 18:19:28 by hkim2             #+#    #+#             */
-/*   Updated: 2022/05/12 18:24:58 by hkim2            ###   ########.fr       */
+/*   Updated: 2022/05/12 21:51:05 by hkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,16 @@ int		ft_pwd(t_cmd *cmd_list)
 	
 	if (get_cmd_size(cmd_list) > 1 && !is_redirection(cmd_list->cmdline[1].cmd) )
 	{
-		printf("pwd: too many arguments\n");
+		ft_putendl_fd("pwd: too many arguments\n", STDERR);
 		return (EXIT_FAILURE);
 	}
 	if (getcwd(buf, 1024))
 	{
-		printf("%s\n", buf);
+		ft_putendl_fd(buf, STDOUT);
+		ft_putendl_fd("\n", STDOUT);
 		return (EXIT_SUCCESS);
 	}
 	else
-		printf("getcwd fail\n");
+		ft_putendl_fd("getcwd fail\n", STDOUT);
 	return (EXIT_FAILURE);
 }
