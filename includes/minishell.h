@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeonghwl <jeonghwl@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: hkim2 <hkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 13:57:07 by jeonghwl          #+#    #+#             */
-/*   Updated: 2022/05/11 13:57:09 by jeonghwl         ###   ########.fr       */
+/*   Updated: 2022/05/12 18:21:40 by hkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,50 +92,50 @@ typedef struct s_token_quote_status
 	int	quote;
 }	t_token_quote_status;
 
-char				check_quote(char *line);
+//char				check_quote(char *line);
 
-int					exec(t_cmd *cmp_list, char *argv[], char **envp[]);
-int					exec_function(t_cmd *cmd_list, char *argv[], char **envp[], \
-					int fds[]);
+//int					exec(t_cmd *cmp_list, char *argv[], char **envp[]);
+//int					exec_function(t_cmd *cmd_list, char *argv[], char **envp[], \
+//					int fds[]);
 
-void				init_nbf(t_nbf *nbf);
-int					free_nbf(t_nbf *nbf);
-int					check_redirect(t_cmd *cmd_list, int fds[]);
-void				exec_child(t_cmd *cmd_list, char *argv[], char **envp[], \
-					int fds[]);
-int					exec_parents(int pid, int fds[]);
+//void				init_nbf(t_nbf *nbf);
+//int					free_nbf(t_nbf *nbf);
+//int					check_redirect(t_cmd *cmd_list, int fds[]);
+//void				exec_child(t_cmd *cmd_list, char *argv[], char **envp[], \
+//					int fds[]);
+//int					exec_parents(int pid, int fds[]);
 
-char				*ft_join_path(char const *s1, char const *s2);
+//char				*ft_join_path(char const *s1, char const *s2);
 
-int					ft_cd(t_cmd *cmd_list);
-int					ft_exit(t_cmd *cmd_list);
-int					ft_pwd(int fd);
-int					ft_echo(t_cmd *cmd_list, int fd);
-int					ft_env(t_cmd *cmd_list, char **envp, int fd);
-int					ft_export(t_cmd *cmd_list, char ***envp, int fd);
+//int					ft_cd(t_cmd *cmd_list);
+//int					ft_exit(t_cmd *cmd_list);
+//int					ft_pwd(int fd);
+//int					ft_echo(t_cmd *cmd_list, int fd);
+//int					ft_env(t_cmd *cmd_list, char **envp, int fd);
+//int					ft_export(t_cmd *cmd_list, char ***envp, int fd);
 
-void				print_errstr(t_cmd *cmd_list);
-void				error_write(char *error_str,
-						char *err_cmdline, char *err_cmdline2);
-void				print_errstr3(t_cmd *cmd_list);
+//void				print_errstr(t_cmd *cmd_list);
+//void				error_write(char *error_str,
+//						char *err_cmdline, char *err_cmdline2);
+//void				print_errstr3(t_cmd *cmd_list);
 
-int					add_envp(char *cmd, char ***envp);
-int					isvalid_export(char *line);
-int					cnt_envp_row(char **envp);
-char				**sort_env(char **envp);
-int					haveequal(char *line);
-void				add_key_envp(char ***envp, char *cmd, int keyindex);
+//int					add_envp(char *cmd, char ***envp);
+//int					isvalid_export(char *line);
+//int					cnt_envp_row(char **envp);
+//char				**sort_env(char **envp);
+//int					haveequal(char *line);
+//void				add_key_envp(char ***envp, char *cmd, int keyindex);
 
-int					redirect(t_cmd *cmd_list, int *last_index, int *fds[]);
-int					redirect_check(t_cmd *cmd_list, int *fds[]);
-int					check_fd_error(t_cmd *cmd_list, int errorcode, \
-					int error_index, int fd);
+//int					redirect(t_cmd *cmd_list, int *last_index, int *fds[]);
+//int					redirect_check(t_cmd *cmd_list, int *fds[]);
+//int					check_fd_error(t_cmd *cmd_list, int errorcode, \
+//					int error_index, int fd);
 
 int					ft_redir_chk(char *str);
-int					redir_err_chk(t_cmd *cmd_list);
+//int					redir_err_chk(t_cmd *cmd_list);
 
-int					ft_valid_key(char *key);
-int					ft_unset(t_cmd *cmd_list, char **envp);
+//int					ft_valid_key(char *key);
+//int					ft_unset(t_cmd *cmd_list, char **envp);
 
 //signal.c
 void				ft_signal(void);
@@ -180,4 +180,31 @@ int					ft_is_closed_quote(char *str, char quote);
 // parser/parse.c
 void				ft_parse(t_cmd **cmd_list, char *line, char **envp);
 
+//exec header
+
+//exec/execute.c
+void				execute(t_cmd *cmd_list, char **env);
+
+//env path
+char				**get_cmd_path(char **env);
+char				*get_cmd(char **path, char *cmd);
+int					find_cmd_index(char **path, char *cmd);
+
+//check_util
+int					check_file(char *path);
+int					check_dir(char *path);
+int					is_redirection(char *cmd);
+int					get_cmd_size(t_cmd *cmd_list);
+
+//builtin
+int					is_builtin(char *cmd);
+int					exec_builtin(t_cmd *cmd_list, char **env);
+int					ft_pwd(t_cmd *cmd_list);
+int					ft_env(char **env);
+int					ft_export(t_cmd *cmd_list, char **env);
+
+//export_util
+void				print_export(char **env);
+void				free_split_str(char **str);
+char				*bind_cmds(t_cmd *cmd_list);
 #endif

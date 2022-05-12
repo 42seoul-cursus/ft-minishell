@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeonghwl <jeonghwl@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: hkim2 <hkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 13:56:13 by jeonghwl          #+#    #+#             */
-/*   Updated: 2022/05/11 15:06:34 by jeonghwl         ###   ########.fr       */
+/*   Updated: 2022/05/12 18:22:05 by hkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,8 @@ char **copied_env, char *argv[])
 {
 	add_history(command);
 	ft_parse(command_list, command, copied_env);
-	g_exit_status = exec(*command_list, argv, &copied_env);
+	execute(*command_list, copied_env);
+	//g_exit_status = exec(*command_list, argv, &copied_env);
 	ft_free_list(*command_list);
 }
 
@@ -68,6 +69,7 @@ int	main(int argc, char *argv[], char *envp[])
 	char	**copied_env;
 	char	*location;
 
+	
 	argc = 1;
 	ft_print_title();
 	copied_env = ft_init_env(envp);
@@ -85,5 +87,6 @@ int	main(int argc, char *argv[], char *envp[])
 			ft_minishell(command, &command_list, copied_env, argv);
 		free(command);
 	}
+	(void)argc;
 	return (0);
 }
