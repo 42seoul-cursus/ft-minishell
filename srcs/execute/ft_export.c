@@ -6,7 +6,7 @@
 /*   By: hkim2 <hkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 18:58:49 by hkim2             #+#    #+#             */
-/*   Updated: 2022/05/12 23:00:40 by hkim2            ###   ########.fr       */
+/*   Updated: 2022/05/12 23:32:29 by hkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,11 @@ int	valid_cmd(char *cmd)
 		len = tmp - cmd;
 	i = 1;
 	while (i < len)
-		if (!ft_isalnum(cmd[i++]) && cmd[i] != '_')
+	{
+		if (!is_vaild_word(cmd[i]) && !ft_isdigit(cmd[i]))
 			return EXIT_FAILURE;
+		i++;
+	}
 	return (EXIT_SUCCESS);
 }
 
