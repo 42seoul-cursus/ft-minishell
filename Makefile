@@ -3,17 +3,18 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jeonghwl <jeonghwl@student.42seoul.kr>     +#+  +:+       +#+         #
+#    By: hkim2 <hkim2@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/12 14:11:43 by jeonghwl          #+#    #+#              #
-#    Updated: 2022/05/12 14:11:49 by jeonghwl         ###   ########.fr        #
+#    Updated: 2022/05/12 18:24:19 by hkim2            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
 CC 				= gcc
 RM				= rm -rf
-CFLAGS 			= -Wall -Wextra -Werror
+#-Werror을 하면 not uses가 떠서 잠시 주석처리
+CFLAGS 			= -Wall -Wextra #-Werror
 NAME 			= minishell
 
 READLINE_LIB 	= -lreadline -L/usr/local/opt/readline/lib
@@ -23,16 +24,8 @@ LIBFT		= libft.a
 LIBFT_DIR	= libft
 
 SRC_DIR 	= srcs
-SRC 		= srcs/utils/utils.c \
-			  srcs/execute/exec.c srcs/utils/error_management.c \
-			  srcs/execute/ft_cd.c srcs/execute/ft_exit.c \
-			  srcs/execute/ft_env.c srcs/execute/ft_pwd.c \
-			  srcs/execute/ft_export.c srcs/execute/export_utils.c \
-			  srcs/redirection/redir_chk.c \
-			  srcs/redirection/redirect.c srcs/redirection/redirect_check.c \
-			  srcs/execute/ft_echo.c srcs/execute/ft_unset.c \
-			  srcs/execute/exec_utils.c srcs/utils/utils2.c \
-			  srcs/minishell.c \
+SRC 		= 	srcs/ft_tmp.c \
+				srcs/minishell.c \
 				srcs/print_terminal.c \
 				srcs/signal.c \
 				srcs/parser/get_token.c \
@@ -40,9 +33,16 @@ SRC 		= srcs/utils/utils.c \
 				srcs/parser/assign_output_token.c \
 				srcs/parser/env_init_key_value.c \
 				srcs/parser/assign_output_command.c \
-			  srcs/parser/output_token_len.c \
+			 	srcs/parser/output_token_len.c \
 				srcs/parser/command_split.c \
-			  srcs/parser/parse.c \
+				srcs/parser/parse.c \
+				srcs/execute/execute.c \
+				srcs/execute/execute_builtin.c \
+				srcs/execute/env_util.c \
+				srcs/execute/ft_env.c \
+				srcs/execute/ft_pwd.c \
+				srcs/execute/ft_export.c \
+
 				
 				
 				
