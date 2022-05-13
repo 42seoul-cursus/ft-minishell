@@ -6,7 +6,7 @@
 /*   By: hkim2 <hkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 13:57:07 by jeonghwl          #+#    #+#             */
-/*   Updated: 2022/05/12 18:21:40 by hkim2            ###   ########.fr       */
+/*   Updated: 2022/05/12 23:01:06 by hkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ typedef struct s_cmd
 	int				right_flag;
 	char			quote;
 	char			*path;
+	char			**env;
 	char			*(redirect_filename[4]);
 }	t_cmd;
 
@@ -180,31 +181,38 @@ int					ft_is_closed_quote(char *str, char quote);
 // parser/parse.c
 void				ft_parse(t_cmd **cmd_list, char *line, char **envp);
 
-//exec header
+//execute header
 
-//exec/execute.c
-void				execute(t_cmd *cmd_list, char **env);
-
-//env path
-char				**get_cmd_path(char **env);
-char				*get_cmd(char **path, char *cmd);
-int					find_cmd_index(char **path, char *cmd);
-
-//check_util
-int					check_file(char *path);
-int					check_dir(char *path);
+//execute/execute.c
+void				execute(t_cmd *cmd_list, char ***env);
 int					is_redirection(char *cmd);
 int					get_cmd_size(t_cmd *cmd_list);
 
-//builtin
-int					is_builtin(char *cmd);
-int					exec_builtin(t_cmd *cmd_list, char **env);
-int					ft_pwd(t_cmd *cmd_list);
-int					ft_env(char **env);
-int					ft_export(t_cmd *cmd_list, char **env);
+//execute/env_util.c
+char				**get_cmd_path(char **env);
+char				*get_cmd(char **path, char *cmd);
+int					find_cmd_index(char **path, char *cmd);
+int					check_file(char *path);
+int					check_dir(char *path);
 
-//export_util
+//execute/execute_builtin.c
+int					is_builtin(char *cmd);
+int					exec_builtin(t_cmd *cmd_list, char ***env);
+
+//execute/ft_pwd.c
+int					ft_pwd(t_cmd *cmd_list);
+
+//execute/ft_env.c
+int					ft_env(char **env);
+
+//execute/ft_export.c
+int					ft_export(t_cmd *cmd_list, char ***env);
 void				print_export(char **env);
 void				free_split_str(char **str);
-char				*bind_cmds(t_cmd *cmd_list);
+void				print_export_error(char *cmd);
+void				add_env(char *cmd, char ***env);
+
+//execute/export_util
+void				free_split_str(char **str);
+int					is_vaild_word(char c);
 #endif

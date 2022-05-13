@@ -6,7 +6,7 @@
 /*   By: hkim2 <hkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 18:07:33 by hkim2             #+#    #+#             */
-/*   Updated: 2022/05/12 18:24:44 by hkim2            ###   ########.fr       */
+/*   Updated: 2022/05/12 21:28:30 by hkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int		is_builtin(char *cmd)
 	return (0);	
 }
 
-int		exec_builtin(t_cmd *cmd_list, char **env)
+int		exec_builtin(t_cmd *cmd_list, char ***env)
 {
 	if (ft_strncmp(cmd_list->cmdline[0].cmd, "cd", 2) == 0)
 		return (EXIT_SUCCESS);
@@ -40,7 +40,7 @@ int		exec_builtin(t_cmd *cmd_list, char **env)
 	else if (ft_strncmp(cmd_list->cmdline[0].cmd, "echo", 4) == 0)
 		return (EXIT_SUCCESS);
 	else if (ft_strncmp(cmd_list->cmdline[0].cmd, "env", 3) == 0)
-		return (ft_env(env));
+		return (ft_env(*env));
 	else if (ft_strncmp(cmd_list->cmdline[0].cmd, "export", 6) == 0)
 		return (ft_export(cmd_list, env));
 	else if (ft_strncmp(cmd_list->cmdline[0].cmd, "unset", 5) == 0)

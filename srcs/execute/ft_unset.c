@@ -1,34 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pwd.c                                           :+:      :+:    :+:   */
+/*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hkim2 <hkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/12 18:19:28 by hkim2             #+#    #+#             */
-/*   Updated: 2022/05/12 21:51:05 by hkim2            ###   ########.fr       */
+/*   Created: 2022/05/12 22:12:29 by hkim2             #+#    #+#             */
+/*   Updated: 2022/05/12 22:20:22 by hkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+# include "../../includes/minishell.h"
 
-int		ft_pwd(t_cmd *cmd_list)
+int	ft_unset(t_cmd *cmd_list, char ***env)
 {
-	char	buf[1024];
-	
-	
-	if (get_cmd_size(cmd_list) > 1 && !is_redirection(cmd_list->cmdline[1].cmd) )
-	{
-		ft_putendl_fd("pwd: too many arguments\n", STDERR);
-		return (EXIT_FAILURE);
-	}
-	if (getcwd(buf, 1024))
-	{
-		ft_putendl_fd(buf, STDOUT);
-		ft_putendl_fd("\n", STDOUT);
+	if (get_cmd_size(cmd_list) == 1)
 		return (EXIT_SUCCESS);
-	}
-	else
-		ft_putendl_fd("getcwd fail\n", STDOUT);
-	return (EXIT_FAILURE);
 }
