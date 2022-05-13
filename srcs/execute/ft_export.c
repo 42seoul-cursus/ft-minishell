@@ -6,7 +6,7 @@
 /*   By: hkim2 <hkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 18:58:49 by hkim2             #+#    #+#             */
-/*   Updated: 2022/05/13 18:59:01 by hkim2            ###   ########.fr       */
+/*   Updated: 2022/05/14 00:01:49 by hkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ int	add_env(char *cmd, char ***env)
 	char	**tmp;
 	int		len; 
 	
-	if (!add_duplicate_key(cmd, env))
+	//이부분은 반환 분기가 3개 이므로 수정할 것
+	if (add_duplicate_key(cmd, env) < 2)
 		return (EXIT_FAILURE);
 	len = 0;
 	i = 0;
@@ -115,7 +116,7 @@ int	ft_export(t_cmd *cmd_list, char ***env)
 			is_error = EXIT_SUCCESS;
 		}
 		else
-			add_env(cmd, env);
+			return  (add_env(cmd, env));
 		free(cmd);
 	}
 	return (is_error);

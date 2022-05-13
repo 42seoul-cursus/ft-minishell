@@ -6,7 +6,7 @@
 /*   By: hkim2 <hkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 21:43:58 by hkim2             #+#    #+#             */
-/*   Updated: 2022/05/13 18:59:08 by hkim2            ###   ########.fr       */
+/*   Updated: 2022/05/13 23:53:04 by hkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	add_duplicate_key(char *cmd, char ***env)
 
 	key_index = get_duplicate_index(cmd, *env);
 	if (key_index == -1)
-		return (EXIT_FAILURE);
+		return (2);
 	tmp = ft_strdup(cmd);
 	if (!tmp)
 		return (EXIT_FAILURE);
