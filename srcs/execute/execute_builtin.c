@@ -6,7 +6,7 @@
 /*   By: hkim2 <hkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 18:07:33 by hkim2             #+#    #+#             */
-/*   Updated: 2022/05/12 21:28:30 by hkim2            ###   ########.fr       */
+/*   Updated: 2022/05/12 23:38:14 by hkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int		exec_builtin(t_cmd *cmd_list, char ***env)
 	else if (ft_strncmp(cmd_list->cmdline[0].cmd, "export", 6) == 0)
 		return (ft_export(cmd_list, env));
 	else if (ft_strncmp(cmd_list->cmdline[0].cmd, "unset", 5) == 0)
-		return (EXIT_SUCCESS);
+		return (ft_unset(cmd_list, env));
 	else if (ft_strncmp(cmd_list->cmdline[0].cmd, "exit", 4) == 0)
 		return (EXIT_SUCCESS);
 	return (EXIT_FAILURE);	

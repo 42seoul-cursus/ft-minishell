@@ -6,7 +6,7 @@
 #    By: hkim2 <hkim2@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/12 14:11:43 by jeonghwl          #+#    #+#              #
-#    Updated: 2022/05/12 22:35:59 by hkim2            ###   ########.fr        #
+#    Updated: 2022/05/13 00:56:29 by hkim2            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 CC 				= gcc
 RM				= rm -rf
 #-Werror을 하면 not uses가 떠서 잠시 주석처리
-CFLAGS 			= -Wall -Wextra #-Werror
+CFLAGS 			= -Wall -Wextra -g -fsanitize=address#-Werror
 NAME 			= minishell
 
 READLINE_LIB 	= -lreadline -L/usr/local/opt/readline/lib
@@ -42,7 +42,8 @@ SRC 		= 	srcs/ft_tmp.c \
 				srcs/execute/ft_env.c \
 				srcs/execute/ft_pwd.c \
 				srcs/execute/ft_export.c \
-				srcs/execute/ft_export_util.c
+				srcs/execute/ft_export_util.c \
+				srcs/execute/ft_unset.c \
 				
 OBJ_DIR 	= objs
 OBJ 		= $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
