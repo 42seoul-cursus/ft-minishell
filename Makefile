@@ -6,7 +6,7 @@
 #    By: hkim2 <hkim2@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/12 14:11:43 by jeonghwl          #+#    #+#              #
-#    Updated: 2022/05/13 00:56:29 by hkim2            ###   ########.fr        #
+#    Updated: 2022/05/14 00:02:05 by hkim2            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,6 +44,8 @@ SRC 		= 	srcs/ft_tmp.c \
 				srcs/execute/ft_export.c \
 				srcs/execute/ft_export_util.c \
 				srcs/execute/ft_unset.c \
+				srcs/execute/ft_cd.c \
+				srcs/execute/ft_cd_util.c \
 				
 OBJ_DIR 	= objs
 OBJ 		= $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)

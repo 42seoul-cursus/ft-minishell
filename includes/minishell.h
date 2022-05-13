@@ -6,7 +6,7 @@
 /*   By: hkim2 <hkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 13:57:07 by jeonghwl          #+#    #+#             */
-/*   Updated: 2022/05/13 18:28:48 by hkim2            ###   ########.fr       */
+/*   Updated: 2022/05/14 00:03:52 by hkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,10 @@
 
 # define CLOSED 1
 # define UNCLOSED 0
+
+# define CD_ERROR 0
+# define CD_HOME 1
+# define CD_ARG 2
 
 extern int	g_exit_status;
 
@@ -217,11 +221,23 @@ void				free_split_str(char **str);
 int					is_vaild_word(char c);
 int					add_duplicate_key(char *cmd, char ***env);
 int					get_duplicate_index(char *cmd, char **env);
+
 //execute/ft_unset.c
 int					ft_unset(t_cmd *cmd_list, char ***env);
 void				print_unset_error(char *cmd);
 int					valid_unset_cmd(char *cmd);
 int					get_removal_index(char *cmd, char **env);
 void				remove_env(char *cmd, char ***env);
+
+//execute/ft_cd.c
+int					ft_cd(t_cmd *cmd_list, char ***env);
+int					execute_chdir(char ***env, char *path);
+int					execute_env(t_cmd *cmd_list, char ***env, char *home, char *path);
+int					execute_none_option(t_cmd *cmd_list, char ***env, char *home);
+int					execute_home(t_cmd *cmd_list, char ***env, char *home, char *path);
+
+//execute/ft_cd_util.c
+int					print_cd_error(char *cmd);
+int					add_cd_env(char *current_pwd, char *old_pwd, char ***env);
 
 #endif
