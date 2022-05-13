@@ -6,7 +6,7 @@
 /*   By: hkim2 <hkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 17:53:42 by hkim2             #+#    #+#             */
-/*   Updated: 2022/05/12 18:24:52 by hkim2            ###   ########.fr       */
+/*   Updated: 2022/05/13 18:40:32 by hkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	ft_env(char **env)
 	while (env[i])
 	{
 		if (ft_strchr(env[i], '='))
-			ft_putendl_fd(env[i], STDOUT_FILENO);
+			ft_putendl_fd(env[i], STDOUT);
 		i++;
 	}
 	return (0);
