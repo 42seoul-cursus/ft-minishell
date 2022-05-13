@@ -6,7 +6,7 @@
 /*   By: hkim2 <hkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 21:43:58 by hkim2             #+#    #+#             */
-/*   Updated: 2022/05/12 23:00:42 by hkim2            ###   ########.fr       */
+/*   Updated: 2022/05/13 18:59:08 by hkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,43 @@ int	is_vaild_word(char c)
 	if (c == '_')
 		return (1);
 	return (0);
+}
+
+int	get_duplicate_index(char *cmd, char **env)
+{
+	int		i;
+	char	**split;
+	char	**split_cmd;
+
+	split_cmd = ft_split(cmd, '=');
+	if (!split_cmd)
+		return (-1);
+	i = 0;
+	while (env[i])
+	{
+		split = ft_split(env[i], '=');
+		if (!split)
+			return (-1);
+		if (ft_strlen(split[0]) == ft_strlen(split_cmd[0]))
+			if (ft_strncmp(split[0], split_cmd[0], ft_strlen(split_cmd[0])) == 0)
+				return (i);
+		i++;
+	}
+	return (-1);
+}
+
+int	add_duplicate_key(char *cmd, char ***env)
+{
+	char	*tmp;
+	int		key_index;
+
+	key_index = get_duplicate_index(cmd, *env);
+	if (key_index == -1)
+		return (EXIT_FAILURE);
+	tmp = ft_strdup(cmd);
+	if (!tmp)
+		return (EXIT_FAILURE);
+	free((*env)[key_index]);
+	(*env)[key_index] = tmp;
+	return (EXIT_SUCCESS);
 }

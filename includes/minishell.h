@@ -6,7 +6,7 @@
 /*   By: hkim2 <hkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 13:57:07 by jeonghwl          #+#    #+#             */
-/*   Updated: 2022/05/12 23:01:06 by hkim2            ###   ########.fr       */
+/*   Updated: 2022/05/13 18:28:48 by hkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -210,9 +210,18 @@ int					ft_export(t_cmd *cmd_list, char ***env);
 void				print_export(char **env);
 void				free_split_str(char **str);
 void				print_export_error(char *cmd);
-void				add_env(char *cmd, char ***env);
+int					add_env(char *cmd, char ***env);
 
 //execute/export_util
 void				free_split_str(char **str);
 int					is_vaild_word(char c);
+int					add_duplicate_key(char *cmd, char ***env);
+int					get_duplicate_index(char *cmd, char **env);
+//execute/ft_unset.c
+int					ft_unset(t_cmd *cmd_list, char ***env);
+void				print_unset_error(char *cmd);
+int					valid_unset_cmd(char *cmd);
+int					get_removal_index(char *cmd, char **env);
+void				remove_env(char *cmd, char ***env);
+
 #endif

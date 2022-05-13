@@ -6,7 +6,7 @@
 /*   By: hkim2 <hkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 18:58:49 by hkim2             #+#    #+#             */
-/*   Updated: 2022/05/12 23:32:29 by hkim2            ###   ########.fr       */
+/*   Updated: 2022/05/13 18:59:01 by hkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,15 +42,30 @@ void	print_export_error(char *cmd)
 	ft_putstr_fd("'\n", 2);
 }
 
-void	add_env(char *cmd, char ***env)
+int	add_env(char *cmd, char ***env)
 {
-	int	i;
-
+	int		i;
+	char	**tmp;
+	int		len; 
+	
+	if (!add_duplicate_key(cmd, env))
+		return (EXIT_FAILURE);
+	len = 0;
 	i = 0;
-	while ((*env)[i])
+	while ((*env)[len])
+		len++;
+	tmp = (char **)malloc(sizeof(char *) * len + sizeof(char *) * 2);
+	i = 0;
+	while (i < len)
+	{
+		tmp[i] = ft_strdup((*env)[i]);
 		i++;
-	(*env)[i] = ft_strdup(cmd);
-	(*env)[i + 1] = NULL;
+	}
+	tmp[len] = ft_strdup(cmd);
+	tmp[len + 1] = NULL;
+	free(*env);
+	(*env) = tmp;
+	return (EXIT_SUCCESS);
 }
 
 int	valid_cmd(char *cmd)
