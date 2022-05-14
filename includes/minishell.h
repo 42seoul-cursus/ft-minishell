@@ -6,7 +6,7 @@
 /*   By: hkim2 <hkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 13:57:07 by jeonghwl          #+#    #+#             */
-/*   Updated: 2022/05/14 20:09:00 by hkim2            ###   ########.fr       */
+/*   Updated: 2022/05/14 21:52:36 by hkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -241,4 +241,9 @@ int					execute_home(t_cmd *cmd_list, char ***env, char *home, char *path);
 int					print_cd_error(char *cmd);
 int					add_cd_env(char *current_pwd, char *old_pwd, char ***env);
 
+//execute/ft_echo.c
+int					ft_echo(t_cmd *cmd_list);
+void				print_echo(t_cmd *cmd_list);
+void				print_echo_no_newline(t_cmd *cmd_list);
+int					check_newline(char *cmd);
 #endif
