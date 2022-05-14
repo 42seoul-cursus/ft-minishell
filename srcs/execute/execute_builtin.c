@@ -6,7 +6,7 @@
 /*   By: hkim2 <hkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 18:07:33 by hkim2             #+#    #+#             */
-/*   Updated: 2022/05/14 21:40:26 by hkim2            ###   ########.fr       */
+/*   Updated: 2022/05/14 23:32:42 by hkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,6 @@ int		exec_builtin(t_cmd *cmd_list, char ***env)
 	else if (ft_strncmp(cmd_list->cmdline[0].cmd, "unset", 6) == 0)
 		return (ft_unset(cmd_list, env));
 	else if (ft_strncmp(cmd_list->cmdline[0].cmd, "exit", 5) == 0)
-		return (EXIT_SUCCESS);
+		return (ft_exit(cmd_list));
 	return (EXIT_FAILURE);	
 }

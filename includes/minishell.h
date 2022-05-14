@@ -6,7 +6,7 @@
 /*   By: hkim2 <hkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 13:57:07 by jeonghwl          #+#    #+#             */
-/*   Updated: 2022/05/14 21:52:36 by hkim2            ###   ########.fr       */
+/*   Updated: 2022/05/14 23:31:25 by hkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include <sys/stat.h>
 # include "../libft/libft.h"
 # include <signal.h>
+# include <string.h>
 
 # define STDIN 			0
 # define STDOUT 		1
@@ -246,4 +247,11 @@ int					ft_echo(t_cmd *cmd_list);
 void				print_echo(t_cmd *cmd_list);
 void				print_echo_no_newline(t_cmd *cmd_list);
 int					check_newline(char *cmd);
+
+//execute/ft_exit.c
+int					ft_exit(t_cmd *cmd_list);
+int					execute_exit(t_cmd *cmd_list);
+void				print_exit_many_arg();
+void				print_exit_numeric(char *cmd);
+int					is_numeric(char *cmd);
 #endif
