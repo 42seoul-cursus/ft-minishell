@@ -6,7 +6,7 @@
 /*   By: hkim2 <hkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 21:43:58 by hkim2             #+#    #+#             */
-/*   Updated: 2022/05/13 23:53:04 by hkim2            ###   ########.fr       */
+/*   Updated: 2022/05/14 20:18:00 by hkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,11 +64,36 @@ int	add_duplicate_key(char *cmd, char ***env)
 
 	key_index = get_duplicate_index(cmd, *env);
 	if (key_index == -1)
-		return (2);
+		return (-1);
 	tmp = ft_strdup(cmd);
 	if (!tmp)
 		return (EXIT_FAILURE);
 	free((*env)[key_index]);
 	(*env)[key_index] = tmp;
+	return (EXIT_SUCCESS);
+}
+
+int	add_new_value(char *cmd, char ***env)
+{
+	int		i;
+	char	**tmp;
+	int		len; 
+	
+	len = 0;
+	while ((*env)[len])
+		len++;
+	tmp = (char **)malloc(sizeof(char *) * len + sizeof(char *) * 2);
+	if (!tmp)
+		return (EXIT_FAILURE);
+	i = 0;
+	while (i < len)
+	{
+		tmp[i] = ft_strdup((*env)[i]);
+		i++;
+	}
+	tmp[len] = ft_strdup(cmd);
+	tmp[len + 1] = NULL;
+	free(*env);
+	(*env) = tmp;
 	return (EXIT_SUCCESS);
 }

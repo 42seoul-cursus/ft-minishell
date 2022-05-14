@@ -6,7 +6,7 @@
 /*   By: hkim2 <hkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 13:57:07 by jeonghwl          #+#    #+#             */
-/*   Updated: 2022/05/14 00:03:52 by hkim2            ###   ########.fr       */
+/*   Updated: 2022/05/14 20:09:00 by hkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -221,6 +221,7 @@ void				free_split_str(char **str);
 int					is_vaild_word(char c);
 int					add_duplicate_key(char *cmd, char ***env);
 int					get_duplicate_index(char *cmd, char **env);
+int					add_new_value(char *cmd, char ***env);
 
 //execute/ft_unset.c
 int					ft_unset(t_cmd *cmd_list, char ***env);
