@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeonghwl <jeonghwl@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: hkim2 <hkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 13:57:07 by jeonghwl          #+#    #+#             */
-/*   Updated: 2022/05/17 15:04:55 by jeonghwl         ###   ########.fr       */
+/*   Updated: 2022/05/17 21:51:41 by hkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,8 @@ typedef struct s_cmd
 	t_token			*cmdline;
 	struct s_err	err_manage;
 	struct s_cmd	*next;
+	int				pip[2];
+	int				status;
 	int				pipe_flag;
 	int				exit_flag;
 	int				right_flag;
@@ -190,9 +192,15 @@ void				ft_parse(t_cmd **cmd_list, char *line, char **envp);
 
 //execute/execute.c
 void				execute(t_cmd *cmd_list, char ***env);
+void				execute_cmd_pipe(t_cmd *cmd_list, char ***env);
+void				execute_builtin_pipe(t_cmd *cmd_list, char ***env);
+void				execute_builtin(t_cmd *cmd_list, char ***env, int stdin_dup, int stdout_dup);
+void				execute_cmd(t_cmd *cmd_list, char ***env, int stdin_dup, int stdout_dup);
+
+//execute/execute_util.c
 int					is_redirection(char *cmd);
 int					get_cmd_size(t_cmd *cmd_list);
-
+char				**bind_cmd(t_token *cmdline);
 //execute/env_util.c
 char				**get_cmd_path(char **env);
 char				*get_cmd(char **path, char *cmd);
