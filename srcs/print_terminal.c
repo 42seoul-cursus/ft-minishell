@@ -6,13 +6,13 @@
 /*   By: jeonghwl <jeonghwl@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 09:07:40 by jeonghwl          #+#    #+#             */
-/*   Updated: 2022/05/11 14:58:27 by jeonghwl         ###   ########.fr       */
+/*   Updated: 2022/05/17 15:04:54 by jeonghwl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	ft_print_title(void)
+void	ft_print_title_and_dup2(void)
 {
 	char	*username;
 
@@ -34,6 +34,8 @@ void	ft_print_title(void)
 	printf("\e[33;33m-----------------------------------------");
 	printf("\e[33;33m--------------------------\e[0m\n");
 	printf("\n\e[33;32m                          Welcome %s\e[0m\n\n", username);
+	dup2(STDIN, 100);
+	dup2(STDOUT, 101);
 }
 
 char	*ft_strjoin_location(char *s1, char const *s2)
@@ -65,25 +67,21 @@ char	*ft_strjoin_location(char *s1, char const *s2)
 	return (box);
 }
 
-char	*ft_init_location_and_dup2(void)
+char	*ft_init_location(void)
 {
 	char	*location;
 	char	*dir;
 	char	*user;
 
-	dup2(STDIN, 100);
-	dup2(STDOUT, 101);
 	user = getenv("USER");
-	location = ft_strdup("\033[33;35m");
 	if (!user)
-		location = ft_strjoin_location(location, "tester");
+		location = ft_strdup("tester");
 	else
-		location = ft_strjoin_location(location, user);
-	location = ft_strjoin_location(location, "\033[33;37m:");
+		location = ft_strdup(user);
+	location = ft_strjoin_location(location, ":");
 	dir = getcwd(0, 0);
-	location = ft_strjoin_location(location, "\033[33;36m");
 	location = ft_strjoin_location(location, dir);
-	location = ft_strjoin_location(location, "\033[33;37m $ ");
+	location = ft_strjoin_location(location, " $ ");
 	free(dir);
 	return (location);
 }
