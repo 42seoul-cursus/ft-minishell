@@ -33,25 +33,34 @@ int	ft_assign_env(char *in_tok, char **out_token, char **envp)
 	return (in_tok_idx);
 }
 
-int	ft_quote_assign_and_cnt(char *in_tok, char **out_token, char **envp)
+void	*ft_out_tok_assign_cnt(char **out_tok, char *in_tok, int *in_tok_idx)
+{
+	**out_tok = in_tok[*in_tok_idx];
+	(*out_tok)++;
+	(*in_tok_idx)++;
+	return (0);
+}
+
+int	ft_quote_assign_and_cnt(char *in_tok, char **out_tok, char **envp, char q)
 {
 	int	in_tok_idx;
 
 	in_tok_idx = 1;
-	while (in_tok[in_tok_idx] && \
-	(in_tok[in_tok_idx] != '\"' && \
-	in_tok[in_tok_idx] != '\''))
+	if (q == '\"')
 	{
-		if (in_tok[in_tok_idx] == '$' && \
-		in_tok[in_tok_idx - 1] == '\"')
-			in_tok_idx += (ft_assign_env(&in_tok[in_tok_idx], \
-			out_token, envp) + 1);
-		else
+		while (in_tok[in_tok_idx] && in_tok[in_tok_idx] != '\"')
 		{
-			**out_token = in_tok[in_tok_idx];
-			(*out_token)++;
-			in_tok_idx++;
+			if (in_tok[in_tok_idx] == '$')
+				in_tok_idx += (ft_assign_env(&in_tok[in_tok_idx], \
+				out_tok, envp) + 1);
+			else
+				ft_out_tok_assign_cnt(out_tok, in_tok, &in_tok_idx);
 		}
+	}
+	else if (q == '\'')
+	{
+		while (in_tok[in_tok_idx] && in_tok[in_tok_idx] != '\'')
+			ft_out_tok_assign_cnt(out_tok, in_tok, &in_tok_idx);
 	}
 	return (in_tok_idx);
 }
@@ -68,11 +77,11 @@ void	*ft_assign_output_token(char *in_tok, char *out_tok, char **ev)
 	while (in_tok[++i])
 	{
 		if (in_tok[i] == '\'' && \
-		ft_is_closed_quote(&in_tok[i], '\'') == CLOSED)
-			i += ft_quote_assign_and_cnt(&in_tok[i], &out_tok_tmp, ev);
+			ft_is_closed_quote(&in_tok[i], '\'') == CLOSED)
+			i += ft_quote_assign_and_cnt(&in_tok[i], &out_tok_tmp, ev, '\'');
 		else if (in_tok[i] == '\"' && \
-		ft_is_closed_quote(&in_tok[i], '\"') == CLOSED)
-			i += ft_quote_assign_and_cnt(&in_tok[i], &out_tok_tmp, ev);
+			ft_is_closed_quote(&in_tok[i], '\"') == CLOSED)
+			i += ft_quote_assign_and_cnt(&in_tok[i], &out_tok_tmp, ev, '\"');
 		else if (in_tok[i] == '$')
 			i += ft_assign_env(&in_tok[i], &out_tok_tmp, ev);
 		else if (in_tok[i])
