@@ -6,7 +6,7 @@
 #    By: hkim2 <hkim2@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/12 14:11:43 by jeonghwl          #+#    #+#              #
-#    Updated: 2022/05/14 23:30:27 by hkim2            ###   ########.fr        #
+#    Updated: 2022/05/18 15:50:04 by hkim2            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,6 +38,7 @@ SRC 		= 	srcs/ft_tmp.c \
 				srcs/parser/parse.c \
 				srcs/execute/execute.c \
 				srcs/execute/execute_builtin.c \
+				srcs/execute/execute_util.c \
 				srcs/execute/env_util.c \
 				srcs/execute/ft_env.c \
 				srcs/execute/ft_pwd.c \

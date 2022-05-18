@@ -6,7 +6,7 @@
 /*   By: hkim2 <hkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 13:57:07 by jeonghwl          #+#    #+#             */
-/*   Updated: 2022/05/17 21:51:41 by hkim2            ###   ########.fr       */
+/*   Updated: 2022/05/18 17:01:32 by hkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,7 +194,7 @@ void				ft_parse(t_cmd **cmd_list, char *line, char **envp);
 void				execute(t_cmd *cmd_list, char ***env);
 void				execute_cmd_pipe(t_cmd *cmd_list, char ***env);
 void				execute_builtin_pipe(t_cmd *cmd_list, char ***env);
-void				execute_builtin(t_cmd *cmd_list, char ***env, int stdin_dup, int stdout_dup);
+int					execute_builtin(t_cmd *cmd_list, char ***env, int stdin_dup, int stdout_dup);
 void				execute_cmd(t_cmd *cmd_list, char ***env, int stdin_dup, int stdout_dup);
 
 //execute/execute_util.c
@@ -217,6 +217,7 @@ int					ft_pwd(t_cmd *cmd_list);
 
 //execute/ft_env.c
 int					ft_env(char **env);
+void				sort_env(char ***env);
 
 //execute/ft_export.c
 int					ft_export(t_cmd *cmd_list, char ***env);
