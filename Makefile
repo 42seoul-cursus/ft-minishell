@@ -6,7 +6,7 @@
 #    By: hkim2 <hkim2@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/12 14:11:43 by jeonghwl          #+#    #+#              #
-#    Updated: 2022/05/18 15:50:04 by hkim2            ###   ########.fr        #
+#    Updated: 2022/05/19 23:18:33 by hkim2            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,6 +49,8 @@ SRC 		= 	srcs/ft_tmp.c \
 				srcs/execute/ft_cd_util.c \
 				srcs/execute/ft_echo.c \
 				srcs/execute/ft_exit.c \
+				srcs/execute/redirection.c \
+				srcs/execute/redirection_util.c \
 				
 OBJ_DIR 	= objs
 OBJ 		= $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)

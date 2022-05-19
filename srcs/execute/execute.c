@@ -6,7 +6,7 @@
 /*   By: hkim2 <hkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 19:43:23 by hkim2             #+#    #+#             */
-/*   Updated: 2022/05/18 15:48:27 by hkim2            ###   ########.fr       */
+/*   Updated: 2022/05/19 23:21:54 by hkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,15 +107,15 @@ void	execute_cmd(t_cmd *cmd_list, char ***env, int stdin_dup, int stdout_dup)
 
 void	execute(t_cmd *cmd_list, char ***env)
 {
-	int		i;
 	int		stdin_dup;
 	int		stdout_dup;
 	
 	stdin_dup = dup(0);
 	stdout_dup = dup(1);
 	while (cmd_list)
-	{	
-		pipe(cmd_list->pip);	
+	{
+		pipe(cmd_list->pip);
+		pre_check(cmd_list);
 		if (cmd_list->pipe_flag)
 		{	
 			if (is_builtin(cmd_list->cmdline[0].cmd))

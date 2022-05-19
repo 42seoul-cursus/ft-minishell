@@ -6,7 +6,7 @@
 /*   By: hkim2 <hkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 13:57:07 by jeonghwl          #+#    #+#             */
-/*   Updated: 2022/05/18 17:01:32 by hkim2            ###   ########.fr       */
+/*   Updated: 2022/05/19 23:22:38 by hkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,7 @@
 # define CLOSED 1
 # define UNCLOSED 0
 
-# define CD_ERROR 0
-# define CD_HOME 1
-# define CD_ARG 2
+# define HEREDOC ".heredoc_tmp"
 
 extern int	g_exit_status;
 
@@ -263,4 +261,17 @@ int					execute_exit(t_cmd *cmd_list);
 void				print_exit_many_arg();
 void				print_exit_numeric(char *cmd);
 int					is_numeric(char *cmd);
+
+//execute/redirection.c
+int					redirewction_out(t_token *cmdline, int i);
+int					redirection_in(t_token *cmdline, int i);
+int					redirection_out_append(t_token *cmdline, int i);
+int					redirection_heredoc(t_token *cmdline, int i);
+int					set_redirection(t_token *cmdline, int i);
+
+//execute/redirection_util.c
+int					parse_cmd_without_ridir(t_cmd *cmd_list, int non_redir_count);
+int					check_redirection(t_cmd *cmd_list);
+int					pre_check(t_cmd *cmd_list);
+int					print_syntax_error();
 #endif
