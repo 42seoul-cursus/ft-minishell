@@ -6,7 +6,7 @@
 /*   By: hkim2 <hkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 13:57:07 by jeonghwl          #+#    #+#             */
-/*   Updated: 2022/05/19 23:22:38 by hkim2            ###   ########.fr       */
+/*   Updated: 2022/05/19 23:30:03 by hkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,7 +189,7 @@ void				ft_parse(t_cmd **cmd_list, char *line, char **envp);
 //execute header
 
 //execute/execute.c
-void				execute(t_cmd *cmd_list, char ***env);
+int					execute(t_cmd *cmd_list, char ***env);
 void				execute_cmd_pipe(t_cmd *cmd_list, char ***env);
 void				execute_builtin_pipe(t_cmd *cmd_list, char ***env);
 int					execute_builtin(t_cmd *cmd_list, char ***env, int stdin_dup, int stdout_dup);
