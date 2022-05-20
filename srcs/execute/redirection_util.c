@@ -6,7 +6,7 @@
 /*   By: hkim2 <hkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 23:17:21 by hkim2             #+#    #+#             */
-/*   Updated: 2022/05/19 23:30:31 by hkim2            ###   ########.fr       */
+/*   Updated: 2022/05/20 11:33:23 by hkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ int	pre_check(t_cmd *cmd_list)
 {
 	if (check_redirection(cmd_list))
 		return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
 }
 
 int	print_syntax_error()
