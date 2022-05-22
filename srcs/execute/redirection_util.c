@@ -6,7 +6,7 @@
 /*   By: hkim2 <hkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 23:17:21 by hkim2             #+#    #+#             */
-/*   Updated: 2022/05/22 17:47:58 by hkim2            ###   ########.fr       */
+/*   Updated: 2022/05/23 00:19:54 by hkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,17 +61,34 @@ int	check_redirection(t_cmd *cmd_list)
 			non_redir_count++;
 		i++;
 	}
-	
 	parse_cmd_without_ridir(cmd_list, non_redir_count);
 	i = 0;
 	return (EXIT_SUCCESS);
 }
 
+int	check_syntax(t_cmd *cmd_list)
+{
+	int	i;
+
+	i = 0;
+	while (cmd_list->cmdline[i].cmd)
+	{
+		if (cmd_list->cmdline[i].redir_flag < 0)
+		{
+			print_syntax_error();
+			return (EXIT_FAILURE);
+		}
+		i++;
+	}
+	return (EXIT_SUCCESS);
+}
+
 int	pre_check(t_cmd *cmd_list, int stdin_dup, int stdout_dup)
 {
+	if (check_syntax(cmd_list))
+		return (EXIT_FAILURE);
 	if (check_redirection(cmd_list))
 		return (EXIT_FAILURE);
-	
 	return (EXIT_SUCCESS);
 }
 
