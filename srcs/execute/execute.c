@@ -6,7 +6,7 @@
 /*   By: hkim2 <hkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 19:43:23 by hkim2             #+#    #+#             */
-/*   Updated: 2022/05/19 23:30:17 by hkim2            ###   ########.fr       */
+/*   Updated: 2022/05/22 19:07:45 by hkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	execute_cmd_pipe(t_cmd *cmd_list, char ***env)
 	pid = fork();
 	if (pid == 0)
 	{
-		dup2(cmd_list->pip[1], STDOUT);
+		dup2(cmd_list->pip[1], STDOUT_FILENO);
 		close(cmd_list->pip[1]);
 		close(cmd_list->pip[0]);
 		cmd_argv = bind_cmd(cmd_list->cmdline);
@@ -38,28 +38,39 @@ void	execute_cmd_pipe(t_cmd *cmd_list, char ***env)
 	}
 	else
 	{
-		dup2(cmd_list->pip[0], STDIN);
+		dup2(cmd_list->pip[0], STDIN_FILENO);
 		close(cmd_list->pip[1]);
 		close(cmd_list->pip[0]);
 		waitpid(pid, &cmd_list->status, 0);
 	}
 }
 
-void	execute_builtin_pipe(t_cmd *cmd_list, char ***env)
+void	execute_builtin_pipe(t_cmd *cmd_list, char ***env, int stdin_dup, int stdout_dup)
 {
 	pid_t	pid;
 
 	pid = fork();
 	if (pid == 0)
 	{
-		dup2(cmd_list->pip[1], STDOUT);
-		close(cmd_list->pip[1]);
-		close(cmd_list->pip[0]);
-		exit(exec_builtin(cmd_list, env));
+		if (cmd_list->redir_flag)
+		{
+			exec_builtin(cmd_list, env);
+			dup2(stdout_dup, STDOUT_FILENO);
+			close(stdout_dup);
+			close(cmd_list->pip[1]);
+			close(cmd_list->pip[0]);
+		}
+		else
+		{
+			dup2(cmd_list->pip[1], STDOUT_FILENO);
+			close(cmd_list->pip[1]);
+			close(cmd_list->pip[0]);
+			exit(exec_builtin(cmd_list, env));
+		}
 	}
 	else
 	{
-		dup2(cmd_list->pip[0], STDIN);
+		dup2(cmd_list->pip[0], STDIN_FILENO);
 		close(cmd_list->pip[1]);
 		close(cmd_list->pip[0]);
 		waitpid(pid, &cmd_list->status, 0);
@@ -68,11 +79,12 @@ void	execute_builtin_pipe(t_cmd *cmd_list, char ***env)
 
 int	execute_builtin(t_cmd *cmd_list, char ***env, int stdin_dup, int stdout_dup)
 {
-	dup2(stdin_dup, 0);
-	dup2(stdout_dup, 1);
-	close(stdin_dup);
-	close(stdout_dup);
-	return (exec_builtin(cmd_list, env));
+
+	int	is_error;
+
+	is_error = exec_builtin(cmd_list, env);
+	set_std_descriptor(stdin_dup, stdout_dup);
+	return (is_error);
 }
 
 void	execute_cmd(t_cmd *cmd_list, char ***env, int stdin_dup, int stdout_dup)
@@ -81,6 +93,7 @@ void	execute_cmd(t_cmd *cmd_list, char ***env, int stdin_dup, int stdout_dup)
 	char	*cmd;
 	char	**cmd_argv;
 	pid_t	pid;
+
 
 	path = get_cmd_path(*env);
 	cmd = get_cmd(path, cmd_list->cmdline[0].cmd);
@@ -98,10 +111,7 @@ void	execute_cmd(t_cmd *cmd_list, char ***env, int stdin_dup, int stdout_dup)
 		close(cmd_list->pip[1]);
 		close(cmd_list->pip[0]);
 		waitpid(pid, &cmd_list->status, 0);
-		dup2(stdin_dup, 0);
-		dup2(stdout_dup, 1);
-		close(stdin_dup);
-		close(stdout_dup);
+		set_std_descriptor(stdin_dup, stdout_dup);
 	}
 }
 
@@ -112,18 +122,20 @@ int	execute(t_cmd *cmd_list, char ***env)
 	
 	stdin_dup = dup(0);
 	stdout_dup = dup(1);
+	
 	while (cmd_list)
-	{
+	{	
+		if (!cmd_list->cmdline[0].cmd)
+			return (0);
+		cmd_list->redir_flag = 0;
 		pipe(cmd_list->pip);
-		if (pre_check(cmd_list))
+		if (pre_check(cmd_list, stdin_dup, stdout_dup))
 			return (EXIT_FAILURE);
 		if (cmd_list->pipe_flag)
-		{	
 			if (is_builtin(cmd_list->cmdline[0].cmd))
-				execute_builtin_pipe(cmd_list, env);
+				execute_builtin_pipe(cmd_list, env, stdin_dup, stdout_dup);
 			else
 				execute_cmd_pipe(cmd_list, env);
-		}
 		else
 		{
 			if (is_builtin(cmd_list->cmdline[0].cmd))

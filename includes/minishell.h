@@ -6,7 +6,7 @@
 /*   By: hkim2 <hkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 13:57:07 by jeonghwl          #+#    #+#             */
-/*   Updated: 2022/05/19 23:30:03 by hkim2            ###   ########.fr       */
+/*   Updated: 2022/05/22 19:06:42 by hkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ typedef struct s_cmd
 	int				status;
 	int				pipe_flag;
 	int				exit_flag;
+	char			redir_flag;
 	int				right_flag;
 	char			quote;
 	char			*path;
@@ -191,7 +192,7 @@ void				ft_parse(t_cmd **cmd_list, char *line, char **envp);
 //execute/execute.c
 int					execute(t_cmd *cmd_list, char ***env);
 void				execute_cmd_pipe(t_cmd *cmd_list, char ***env);
-void				execute_builtin_pipe(t_cmd *cmd_list, char ***env);
+void				execute_builtin_pipe(t_cmd *cmd_list, char ***env, int stdin_dup, int stdout_dup);
 int					execute_builtin(t_cmd *cmd_list, char ***env, int stdin_dup, int stdout_dup);
 void				execute_cmd(t_cmd *cmd_list, char ***env, int stdin_dup, int stdout_dup);
 
@@ -272,6 +273,9 @@ int					set_redirection(t_token *cmdline, int i);
 //execute/redirection_util.c
 int					parse_cmd_without_ridir(t_cmd *cmd_list, int non_redir_count);
 int					check_redirection(t_cmd *cmd_list);
-int					pre_check(t_cmd *cmd_list);
+int					pre_check(t_cmd *cmd_list, int stdin_dup, int stdout_dup);
 int					print_syntax_error();
+
+//execute/pipe_util.c
+void				set_std_descriptor(int stdin_dup, int stdout_dup);
 #endif
