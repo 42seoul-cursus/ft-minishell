@@ -6,7 +6,7 @@
 #    By: hkim2 <hkim2@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/12 14:11:43 by jeonghwl          #+#    #+#              #
-#    Updated: 2022/05/22 19:08:39 by hkim2            ###   ########.fr        #
+#    Updated: 2022/05/22 21:38:32 by hkim2            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,6 +52,7 @@ SRC 		= 	srcs/ft_tmp.c \
 				srcs/execute/redirection.c \
 				srcs/execute/redirection_util.c \
 				srcs/execute/pipe_util.c \
+				srcs/execute/execute_error.c \
 				
 OBJ_DIR 	= objs
 OBJ 		= $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
