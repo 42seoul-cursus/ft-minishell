@@ -6,7 +6,7 @@
 /*   By: hkim2 <hkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 21:43:58 by hkim2             #+#    #+#             */
-/*   Updated: 2022/05/18 17:02:12 by hkim2            ###   ########.fr       */
+/*   Updated: 2022/05/24 00:13:50 by hkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,5 @@ int	add_new_value(char *cmd, char ***env)
 	i = 0;
 	free(*env);
 	(*env) = tmp;
-	sort_env(env);
 	return (EXIT_SUCCESS);
 }

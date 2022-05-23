@@ -6,7 +6,7 @@
 /*   By: hkim2 <hkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 18:58:49 by hkim2             #+#    #+#             */
-/*   Updated: 2022/05/14 20:21:31 by hkim2            ###   ########.fr       */
+/*   Updated: 2022/05/24 00:32:25 by hkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,14 @@ void	print_export(char **env)
 {
 	int		i;
 	char	**split;
+	char	**tmp;
 
+	tmp = ft_init_env(env);
+	sort_env(&tmp);
 	i = 0;
-	while (env[i])
+	while (tmp[i])
 	{
-		split = ft_split(env[i], '=');
+		split = ft_split(tmp[i], '=');
 		if (!split)
 			continue;
 		printf("declare -x %s=", split[0]);
@@ -99,7 +102,7 @@ int	ft_export(t_cmd *cmd_list, char ***env)
 		if (valid_cmd(cmd))
 		{
 			print_export_error(cmd);
-			is_error = EXIT_SUCCESS;
+			is_error = EXIT_FAILURE;
 		}
 		else
 			is_error = add_env(cmd, env);
