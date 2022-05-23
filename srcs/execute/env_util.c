@@ -6,7 +6,7 @@
 /*   By: hkim2 <hkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 18:14:40 by hkim2             #+#    #+#             */
-/*   Updated: 2022/05/23 17:10:28 by hkim2            ###   ########.fr       */
+/*   Updated: 2022/05/23 23:49:12 by hkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int	find_cmd_index(char **path, char *cmd)
 	return (-1);
 }
 
-void	set_shell_level(char ***env)
+void	init_env(char ***env)
 {
 	char		*str;
 	long long	level;
@@ -96,5 +96,11 @@ void	set_shell_level(char ***env)
 		return ;
 	}
 	level = ft_atoi(str, NULL);
-	
+	level++;
+	str = ft_strjoin("SHLVL=", ft_itoa((int)level));
+	add_env(str, env);
+	free(str);
+	str = ft_strjoin("ERROR_STATUS=", ft_itoa(0));
+	add_env(str, env);
+	free(str);
 }
