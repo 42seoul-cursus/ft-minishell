@@ -6,7 +6,7 @@
 /*   By: hkim2 <hkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 18:14:40 by hkim2             #+#    #+#             */
-/*   Updated: 2022/05/22 21:44:17 by hkim2            ###   ########.fr       */
+/*   Updated: 2022/05/23 17:10:28 by hkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,17 +84,17 @@ int	find_cmd_index(char **path, char *cmd)
 	return (-1);
 }
 
-int	check_file(char *path)
+void	set_shell_level(char ***env)
 {
-	struct stat	file_info;
+	char		*str;
+	long long	level;
 
-	if (stat(path, &file_info) == -1)
-		return (EXIT_FAILURE);
-	if (S_ISREG(file_info.st_mode))
+	str = getenv("SHLVL");
+	if (!str)
 	{
-		if (!(file_info.st_mode & S_IXUSR))
-			return (EXIT_FAILURE);
-		return (EXIT_SUCCESS);
+		add_env("SHLVL=1", env);
+		return ;
 	}
-	return (EXIT_FAILURE);
+	level = ft_atoi(str, NULL);
+	
 }

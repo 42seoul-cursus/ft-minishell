@@ -6,7 +6,7 @@
 /*   By: hkim2 <hkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 13:57:07 by jeonghwl          #+#    #+#             */
-/*   Updated: 2022/05/22 21:37:43 by hkim2            ###   ########.fr       */
+/*   Updated: 2022/05/23 16:43:36 by hkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -209,8 +209,8 @@ void				print_execute_error(char *cmd, int error_code);
 char				**get_cmd_path(char **env);
 char				*get_cmd(char **path, char *cmd);
 int					find_cmd_index(char **path, char *cmd);
-int					check_file(char *path);
-int					check_dir(char *path);
+char				*check_completed_cmd(char *cmd);
+void				set_shell_level(char ***env);
 
 //execute/execute_builtin.c
 int					is_builtin(char *cmd);
@@ -283,4 +283,7 @@ int					print_syntax_error();
 
 //execute/pipe_util.c
 void				set_std_descriptor(int stdin_dup, int stdout_dup);
+
+//execute/error_status.c
+void				set_error_status(char ***env, int status);
 #endif
