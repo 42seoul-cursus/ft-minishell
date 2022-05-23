@@ -6,7 +6,7 @@
 /*   By: jeonghwl <jeonghwl@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 13:55:51 by jeonghwl          #+#    #+#             */
-/*   Updated: 2022/05/18 10:51:17 by jeonghwl         ###   ########.fr       */
+/*   Updated: 2022/05/23 17:15:45 by jeonghwl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,10 @@ int	ft_env_cnt(char *token, int *count, char **envp)
 	key_len = 0;
 	if (token[1] == '?')
 	{
-		status = ft_itoa(g_exit_status);
+		status = getenv("ERROR_STATUS");
+		if (!status)
+			status = "0";
 		*count += ft_strlen(status);
-		free(status);
 		return (1);
 	}
 	if (token[1] == '\0' || token[1] == '\"')
