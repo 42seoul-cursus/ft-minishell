@@ -6,41 +6,34 @@
 /*   By: hkim2 <hkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 19:43:23 by hkim2             #+#    #+#             */
-/*   Updated: 2022/05/22 19:07:45 by hkim2            ###   ########.fr       */
+/*   Updated: 2022/05/22 21:45:25 by hkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
  
-
-
-/*
-리다이렉션 처리가 이미 됐다고 가정
-*/
 void	execute_cmd_pipe(t_cmd *cmd_list, char ***env)
 {
 	char	**path;
 	char	*cmd;
 	char	**cmd_argv;
 	pid_t	pid;
-
+	
 	path = get_cmd_path(*env);
 	cmd = get_cmd(path, cmd_list->cmdline[0].cmd);
 	pid = fork();
 	if (pid == 0)
 	{
 		dup2(cmd_list->pip[1], STDOUT_FILENO);
-		close(cmd_list->pip[1]);
-		close(cmd_list->pip[0]);
+		close_pipe(cmd_list);
 		cmd_argv = bind_cmd(cmd_list->cmdline);
-		if (execve(cmd, cmd_argv, *env) == -1)
-			exit(127);
+		execve(cmd, cmd_argv, *env);
+		print_execute_error(cmd_list->cmdline[0].cmd, 127);
 	}
 	else
 	{
 		dup2(cmd_list->pip[0], STDIN_FILENO);
-		close(cmd_list->pip[1]);
-		close(cmd_list->pip[0]);
+		close_pipe(cmd_list);
 		waitpid(pid, &cmd_list->status, 0);
 	}
 }
@@ -57,22 +50,19 @@ void	execute_builtin_pipe(t_cmd *cmd_list, char ***env, int stdin_dup, int stdou
 			exec_builtin(cmd_list, env);
 			dup2(stdout_dup, STDOUT_FILENO);
 			close(stdout_dup);
-			close(cmd_list->pip[1]);
-			close(cmd_list->pip[0]);
+			close_pipe(cmd_list);
 		}
 		else
 		{
 			dup2(cmd_list->pip[1], STDOUT_FILENO);
-			close(cmd_list->pip[1]);
-			close(cmd_list->pip[0]);
+			close_pipe(cmd_list);
 			exit(exec_builtin(cmd_list, env));
 		}
 	}
 	else
 	{
 		dup2(cmd_list->pip[0], STDIN_FILENO);
-		close(cmd_list->pip[1]);
-		close(cmd_list->pip[0]);
+		close_pipe(cmd_list);
 		waitpid(pid, &cmd_list->status, 0);
 	}
 }
@@ -93,23 +83,20 @@ void	execute_cmd(t_cmd *cmd_list, char ***env, int stdin_dup, int stdout_dup)
 	char	*cmd;
 	char	**cmd_argv;
 	pid_t	pid;
-
-
+	
 	path = get_cmd_path(*env);
 	cmd = get_cmd(path, cmd_list->cmdline[0].cmd);
 	pid = fork();
 	if (pid == 0)
 	{
-		close(cmd_list->pip[0]);
-		close(cmd_list->pip[1]);
+		close_pipe(cmd_list);
 		cmd_argv = bind_cmd(cmd_list->cmdline);
-		if (execve(cmd, cmd_argv, *env) == -1)
-			exit(127);
+		execve(cmd, cmd_argv, *env);
+		print_execute_error(cmd_list->cmdline[0].cmd, 127);
 	}
 	else
 	{
-		close(cmd_list->pip[1]);
-		close(cmd_list->pip[0]);
+		close_pipe(cmd_list);
 		waitpid(pid, &cmd_list->status, 0);
 		set_std_descriptor(stdin_dup, stdout_dup);
 	}

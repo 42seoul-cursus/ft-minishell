@@ -6,7 +6,7 @@
 /*   By: hkim2 <hkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 13:57:07 by jeonghwl          #+#    #+#             */
-/*   Updated: 2022/05/22 19:06:42 by hkim2            ###   ########.fr       */
+/*   Updated: 2022/05/22 21:37:43 by hkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,6 +200,11 @@ void				execute_cmd(t_cmd *cmd_list, char ***env, int stdin_dup, int stdout_dup)
 int					is_redirection(char *cmd);
 int					get_cmd_size(t_cmd *cmd_list);
 char				**bind_cmd(t_token *cmdline);
+
+//execute/execute_error
+void				close_pipe(t_cmd *cmd_list);
+void				print_execute_error(char *cmd, int error_code);
+
 //execute/env_util.c
 char				**get_cmd_path(char **env);
 char				*get_cmd(char **path, char *cmd);
