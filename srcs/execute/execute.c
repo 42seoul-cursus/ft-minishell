@@ -6,7 +6,7 @@
 /*   By: hkim2 <hkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 19:43:23 by hkim2             #+#    #+#             */
-/*   Updated: 2022/05/22 21:45:25 by hkim2            ###   ########.fr       */
+/*   Updated: 2022/05/24 00:08:34 by hkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	execute_cmd_pipe(t_cmd *cmd_list, char ***env)
 		dup2(cmd_list->pip[0], STDIN_FILENO);
 		close_pipe(cmd_list);
 		waitpid(pid, &cmd_list->status, 0);
+		set_error_status(env, WEXITSTATUS(cmd_list->status));
 	}
 }
 
@@ -98,6 +99,7 @@ void	execute_cmd(t_cmd *cmd_list, char ***env, int stdin_dup, int stdout_dup)
 	{
 		close_pipe(cmd_list);
 		waitpid(pid, &cmd_list->status, 0);
+		set_error_status(env, WEXITSTATUS(cmd_list->status));
 		set_std_descriptor(stdin_dup, stdout_dup);
 	}
 }
