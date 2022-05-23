@@ -6,7 +6,7 @@
 /*   By: hkim2 <hkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 20:31:10 by hkim2             #+#    #+#             */
-/*   Updated: 2022/05/14 21:52:59 by hkim2            ###   ########.fr       */
+/*   Updated: 2022/05/22 19:32:16 by hkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,20 @@
 int	check_newline(char *cmd)
 {
 	int	len;
+	int	i;
 
+	i = 1;
 	len = ft_strlen(cmd);
-	if (len != 2)
+	if (len < 1)
 		return (1);
-	if (ft_strncmp(cmd, "-n", 2) != 0)
+	if (cmd[0] != '-')
 		return (1);
+	while (cmd[i])
+	{
+		if (cmd[i] != 'n')
+			return (1);
+		i++;
+	}
 	return (0);
 }
 
