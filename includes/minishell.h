@@ -6,7 +6,7 @@
 /*   By: hkim2 <hkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 13:57:07 by jeonghwl          #+#    #+#             */
-/*   Updated: 2022/05/23 16:43:36 by hkim2            ###   ########.fr       */
+/*   Updated: 2022/05/23 23:41:19 by hkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -210,7 +210,7 @@ char				**get_cmd_path(char **env);
 char				*get_cmd(char **path, char *cmd);
 int					find_cmd_index(char **path, char *cmd);
 char				*check_completed_cmd(char *cmd);
-void				set_shell_level(char ***env);
+void				init_env(char ***env);
 
 //execute/execute_builtin.c
 int					is_builtin(char *cmd);

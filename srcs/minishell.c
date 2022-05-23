@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeonghwl <jeonghwl@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: hkim2 <hkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 13:56:13 by jeonghwl          #+#    #+#             */
-/*   Updated: 2022/05/17 15:04:54 by jeonghwl         ###   ########.fr       */
+/*   Updated: 2022/05/23 23:42:42 by hkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ int	main(int argc, char *argv[], char *envp[])
 	ft_print_title_and_dup2();
 	copied_env = ft_init_env(envp);
 	ft_signal();
+	init_env(&copied_env);
 	while (1)
 	{
 		location = ft_init_location();
