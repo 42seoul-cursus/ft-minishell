@@ -6,7 +6,7 @@
 /*   By: hkim2 <hkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 23:17:21 by hkim2             #+#    #+#             */
-/*   Updated: 2022/05/20 11:33:23 by hkim2            ###   ########.fr       */
+/*   Updated: 2022/05/22 17:47:58 by hkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ int	check_redirection(t_cmd *cmd_list)
 	{
 		if (cmd_list->cmdline[i].redir_flag)
 		{
+			cmd_list->redir_flag = 1;
 			if (cmd_list->cmdline[i + 1].cmd == NULL || cmd_list->cmdline[i + 1].redir_flag)
 				return (print_syntax_error());
 			else
@@ -66,10 +67,11 @@ int	check_redirection(t_cmd *cmd_list)
 	return (EXIT_SUCCESS);
 }
 
-int	pre_check(t_cmd *cmd_list)
+int	pre_check(t_cmd *cmd_list, int stdin_dup, int stdout_dup)
 {
 	if (check_redirection(cmd_list))
 		return (EXIT_FAILURE);
+	
 	return (EXIT_SUCCESS);
 }
 
