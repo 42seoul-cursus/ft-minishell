@@ -6,7 +6,7 @@
 /*   By: hkim2 <hkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 23:17:21 by hkim2             #+#    #+#             */
-/*   Updated: 2022/05/23 00:19:54 by hkim2            ###   ########.fr       */
+/*   Updated: 2022/05/24 19:52:54 by hkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	check_redirection(t_cmd *cmd_list)
 				return (print_syntax_error());
 			else
 			{
-				set_redirection(cmd_list->cmdline, i);
+				set_redirection(cmd_list, i);
 				i++;
 			}
 		}
@@ -83,16 +83,31 @@ int	check_syntax(t_cmd *cmd_list)
 	return (EXIT_SUCCESS);
 }
 
-int	pre_check(t_cmd *cmd_list, int stdin_dup, int stdout_dup)
+int	pre_check(t_cmd *cmd_list, char ***env, int stdin_dup, int stdout_dup)
 {
+	int	error;
+	
+	if (check_pipe_syntax(cmd_list))
+	{
+		set_error_status(env, 1);
+		return (EXIT_FAILURE);
+	}
 	if (check_syntax(cmd_list))
+	{
+		set_error_status(env, 1);
 		return (EXIT_FAILURE);
+	}
 	if (check_redirection(cmd_list))
+	{
+		set_error_status(env, 1);
 		return (EXIT_FAILURE);
+	}
+	check_prev_pipe(cmd_list);
 	return (EXIT_SUCCESS);
 }
 
 int	print_syntax_error()
 {
 	ft_putendl_fd("Syntax Error", STDERR);
+	return (EXIT_FAILURE);
 }

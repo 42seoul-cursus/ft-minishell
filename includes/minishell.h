@@ -6,7 +6,7 @@
 /*   By: hkim2 <hkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 13:57:07 by jeonghwl          #+#    #+#             */
-/*   Updated: 2022/05/23 23:41:19 by hkim2            ###   ########.fr       */
+/*   Updated: 2022/05/24 19:51:20 by hkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ typedef struct s_cmd
 	int				exit_flag;
 	char			redir_flag;
 	int				right_flag;
+	int				prev_pipe_flag;
 	char			quote;
 	char			*path;
 	char			**env;
@@ -191,7 +192,7 @@ void				ft_parse(t_cmd **cmd_list, char *line, char **envp);
 
 //execute/execute.c
 int					execute(t_cmd *cmd_list, char ***env);
-void				execute_cmd_pipe(t_cmd *cmd_list, char ***env);
+void				execute_cmd_pipe(t_cmd *cmd_list, char ***env, int stdin_dup, int stdout_dup);
 void				execute_builtin_pipe(t_cmd *cmd_list, char ***env, int stdin_dup, int stdout_dup);
 int					execute_builtin(t_cmd *cmd_list, char ***env, int stdin_dup, int stdout_dup);
 void				execute_cmd(t_cmd *cmd_list, char ***env, int stdin_dup, int stdout_dup);
@@ -269,18 +270,22 @@ void				print_exit_numeric(char *cmd);
 int					is_numeric(char *cmd);
 
 //execute/redirection.c
-int					redirewction_out(t_token *cmdline, int i);
-int					redirection_in(t_token *cmdline, int i);
-int					redirection_out_append(t_token *cmdline, int i);
-int					redirection_heredoc(t_token *cmdline, int i);
-int					set_redirection(t_token *cmdline, int i);
+int					redirewction_out(t_cmd *ccmd_list, int i);
+int					redirection_in(t_cmd *ccmd_list, int i);
+int					redirection_out_append(t_cmd *ccmd_list, int i);
+int					redirection_heredoc(t_cmd *ccmd_list, int i);
+int					set_redirection(t_cmd *ccmd_list, int i);
 
 //execute/redirection_util.c
 int					parse_cmd_without_ridir(t_cmd *cmd_list, int non_redir_count);
 int					check_redirection(t_cmd *cmd_list);
-int					pre_check(t_cmd *cmd_list, int stdin_dup, int stdout_dup);
+int					pre_check(t_cmd *cmd_list, char ***env, int stdin_dup, int stdout_dup);
 int					print_syntax_error();
 
+//execute/redirection_util_two.c
+void				pre_init(t_cmd *cmd_list);
+int					check_pipe_syntax(t_cmd *cmd_list);
+void				check_prev_pipe(t_cmd *cmd_list);
 //execute/pipe_util.c
 void				set_std_descriptor(int stdin_dup, int stdout_dup);
 
