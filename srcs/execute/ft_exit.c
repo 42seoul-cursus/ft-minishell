@@ -6,7 +6,7 @@
 /*   By: hkim2 <hkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 21:57:51 by hkim2             #+#    #+#             */
-/*   Updated: 2022/05/14 23:37:35 by hkim2            ###   ########.fr       */
+/*   Updated: 2022/05/24 21:10:35 by hkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int		execute_exit(t_cmd *cmd_list)
 	else if (get_cmd_size(cmd_list) > 2)
 	{
 		print_exit_many_arg();
-		return (EXIT_SUCCESS);
+		return (EXIT_FAILURE);
 	}
 	ft_putendl_fd("exit", STDOUT);
 	num = ft_atoi(cmd_list->cmdline[1].cmd, NULL) % 256;

@@ -6,7 +6,7 @@
 /*   By: hkim2 <hkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 19:43:23 by hkim2             #+#    #+#             */
-/*   Updated: 2022/05/24 19:51:33 by hkim2            ###   ########.fr       */
+/*   Updated: 2022/05/24 21:51:38 by hkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,7 @@ void	execute_cmd_pipe(t_cmd *cmd_list, char ***env,  int stdin_dup, int stdout_d
 	pid = fork();
 	if (pid == 0)
 	{
-		//if (cmd_list->right_flag)
-			
-		//else
-		//{
-			dup2(cmd_list->pip[1], STDOUT_FILENO);
-			//close_pipe(cmd_list);	
-		//}
+		dup2(cmd_list->pip[1], STDOUT_FILENO);
 		close_pipe(cmd_list);
 		cmd_argv = bind_cmd(cmd_list->cmdline);
 		execve(cmd, cmd_argv, *env);
@@ -38,12 +32,6 @@ void	execute_cmd_pipe(t_cmd *cmd_list, char ***env,  int stdin_dup, int stdout_d
 	}
 	else
 	{
-		//if (cmd_list->right_flag)
-		//{
-		//	//set_std_descriptor(stdin_dup, stdout_dup);
-		//}
-		//else
-		//	dup2(cmd_list->pip[0], STDIN_FILENO);
 		dup2(cmd_list->pip[0], STDIN_FILENO);
 		close_pipe(cmd_list);
 		waitpid(pid, &cmd_list->status, 0);
@@ -59,11 +47,7 @@ void	execute_builtin_pipe(t_cmd *cmd_list, char ***env, int stdin_dup, int stdou
 	if (pid == 0)
 	{
 		if (cmd_list->right_flag)
-		{	
-			close_pipe(cmd_list);	
-			exec_builtin(cmd_list, env);
-			set_std_descriptor(stdin_dup, stdout_dup);
-		}
+			exit(exec_builtin(cmd_list, env));
 		else
 		{
 			dup2(cmd_list->pip[1], STDOUT_FILENO);
@@ -101,6 +85,7 @@ void	execute_cmd(t_cmd *cmd_list, char ***env, int stdin_dup, int stdout_dup)
 	if (pid == 0)
 	{
 		close_pipe(cmd_list);
+		
 		cmd_argv = bind_cmd(cmd_list->cmdline);
 		execve(cmd, cmd_argv, *env);
 		print_execute_error(cmd_list->cmdline[0].cmd, 127);
