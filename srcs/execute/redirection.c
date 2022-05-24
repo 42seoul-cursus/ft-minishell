@@ -6,17 +6,17 @@
 /*   By: hkim2 <hkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 23:13:05 by hkim2             #+#    #+#             */
-/*   Updated: 2022/05/19 23:23:02 by hkim2            ###   ########.fr       */
+/*   Updated: 2022/05/24 16:29:30 by hkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../../includes/minishell.h"
 
-int	redirection_out(t_token *cmdline, int i)
+int	redirection_out(t_cmd *cmd_list, int i)
 {
 	int	fd;
 
-	fd = open(cmdline[i + 1].cmd, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	fd = open(cmd_list->cmdline[i + 1].cmd, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (fd == -1)
 	{
 		ft_putendl_fd(strerror(errno), 2);
@@ -24,15 +24,16 @@ int	redirection_out(t_token *cmdline, int i)
 	}
 	dup2(fd, STDOUT_FILENO);
 	close(fd);
-	cmdline[i + 1].redir_flag = 1;
+	cmd_list->cmdline[i + 1].redir_flag = 1;
+	cmd_list->right_flag = 1;
 	return (EXIT_SUCCESS);
 }
 
-int	redirection_in(t_token *cmdline, int i)
+int	redirection_in(t_cmd *cmd_list, int i)
 {
 	int	fd;
 
-	fd = open(cmdline[i + 1].cmd, O_RDONLY);
+	fd = open(cmd_list->cmdline[i + 1].cmd, O_RDONLY);
 	if (fd == -1)
 	{
 		ft_putendl_fd(strerror(errno), 2);
@@ -40,15 +41,15 @@ int	redirection_in(t_token *cmdline, int i)
 	}
 	dup2(fd, STDIN_FILENO);
 	close(fd);
-	cmdline[i + 1].redir_flag = 1;
+	cmd_list->cmdline[i + 1].redir_flag = 1;
 	return (EXIT_SUCCESS);
 }
 
-int	redirection_out_append(t_token *cmdline, int i)
+int	redirection_out_append(t_cmd *cmd_list, int i)
 {
 	int	fd;
 
-	fd = open(cmdline[i + 1].cmd, O_CREAT | O_WRONLY | O_APPEND, 0644);
+	fd = open(cmd_list->cmdline[i + 1].cmd, O_CREAT | O_WRONLY | O_APPEND, 0644);
 	if (fd == -1)
 	{
 		ft_putendl_fd(strerror(errno), 2);
@@ -56,15 +57,16 @@ int	redirection_out_append(t_token *cmdline, int i)
 	}
 	dup2(fd, STDOUT_FILENO);
 	close(fd);
-	cmdline[i + 1].redir_flag = 1;
+	cmd_list->cmdline[i + 1].redir_flag = 1;
+	cmd_list->right_flag = 1;
 	return (EXIT_SUCCESS);
 }
 
 
-int	redirection_heredoc(t_token *cmdline, int i)
+int	redirection_heredoc(t_cmd *cmd_list, int i)
 {
 	int		fd;
-	int		*str;
+	char	*str;
 
 	fd = open(HEREDOC, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (fd == -1)
@@ -76,7 +78,7 @@ int	redirection_heredoc(t_token *cmdline, int i)
 	{
 		str = readline("> ");
 		if (str)
-			if (ft_strncmp(str, cmdline[i + 1].cmd, ft_strlen(cmdline[i + 1].cmd)) == 0)
+			if (ft_strncmp(str, cmd_list->cmdline[i + 1].cmd, ft_strlen(cmd_list->cmdline[i + 1].cmd)) == 0)
 				break;
 		ft_putendl_fd(str, fd);
 		free(str);
@@ -90,20 +92,20 @@ int	redirection_heredoc(t_token *cmdline, int i)
 	}
 	dup2(fd, STDIN_FILENO);
 	close(fd);
-	cmdline[i + 1].redir_flag = 1;
+	cmd_list->cmdline[i + 1].redir_flag = 1;
 	return (EXIT_SUCCESS);
 }
 
-int	set_redirection(t_token *cmdline, int i)
+int	set_redirection(t_cmd *cmd_list, int i)
 {
-	if (ft_strlen(cmdline[i].cmd) > 2)
+	if (ft_strlen(cmd_list->cmdline[i].cmd) > 2)
 		return (EXIT_FAILURE);
-	if (ft_strncmp(cmdline[i].cmd, ">", 2) == 0)
-		return (redirection_out(cmdline, i));
-	else if (ft_strncmp(cmdline[i].cmd, "<<", 3) == 0)
-		return (redirection_heredoc(cmdline, i));
-	else if (ft_strncmp(cmdline[i].cmd, ">>", 3) == 0)
-		return (redirection_out_append(cmdline, i));
-	else if (ft_strncmp(cmdline[i].cmd, "<", 2) == 0)
-		return (redirection_in(cmdline, i));
+	if (ft_strncmp(cmd_list->cmdline[i].cmd, ">", 2) == 0)
+		return (redirection_out(cmd_list, i));
+	else if (ft_strncmp(cmd_list->cmdline[i].cmd, "<<", 3) == 0)
+		return (redirection_heredoc(cmd_list, i));
+	else if (ft_strncmp(cmd_list->cmdline[i].cmd, ">>", 3) == 0)
+		return (redirection_out_append(cmd_list, i));
+	else if (ft_strncmp(cmd_list->cmdline[i].cmd, "<", 2) == 0)
+		return (redirection_in(cmd_list, i));
 }
