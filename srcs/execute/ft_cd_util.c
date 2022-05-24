@@ -6,7 +6,7 @@
 /*   By: hkim2 <hkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 00:00:07 by hkim2             #+#    #+#             */
-/*   Updated: 2022/05/14 20:13:10 by hkim2            ###   ########.fr       */
+/*   Updated: 2022/05/24 21:34:46 by hkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,4 +41,19 @@ int	add_cd_env(char *current_pwd, char *old_pwd, char ***env)
 	free(env_old_pwd);
 	free(env_pwd);
 	return (EXIT_SUCCESS);
+}
+
+int	check_dir(char *path)
+{
+	struct stat	file_info;
+
+	if (stat(path, &file_info) == -1)
+		return (EXIT_FAILURE);
+	if (S_ISDIR(file_info.st_mode))
+	{
+		if (!(file_info.st_mode & S_IXUSR))
+			return (-1);
+		return (EXIT_SUCCESS);
+	}
+	return (EXIT_FAILURE);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeonghwl <jeonghwl@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: hkim2 <hkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 13:57:07 by jeonghwl          #+#    #+#             */
-/*   Updated: 2022/05/24 20:48:26 by jeonghwl         ###   ########.fr       */
+/*   Updated: 2022/05/24 21:47:07 by hkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -255,6 +255,7 @@ int					execute_home(t_cmd *cmd_list, char ***env, char *home, char *path);
 //execute/ft_cd_util.c
 int					print_cd_error(char *cmd);
 int					add_cd_env(char *current_pwd, char *old_pwd, char ***env);
+int					check_dir(char *path);
 
 //execute/ft_echo.c
 int					ft_echo(t_cmd *cmd_list);

@@ -6,7 +6,7 @@
 /*   By: hkim2 <hkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 19:08:52 by hkim2             #+#    #+#             */
-/*   Updated: 2022/05/14 00:04:28 by hkim2            ###   ########.fr       */
+/*   Updated: 2022/05/24 21:47:01 by hkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,12 @@ int	execute_chdir(char ***env, char *path)
 	char	current_pwd[1024];
 
 	if (!getcwd(old_pwd, 1024))
+		return (EXIT_FAILURE);
+	if (check_dir(path) == -1)
 	{
-		//errono 에러 출력
+		ft_putstr_fd("cd: ", STDERR);
+		ft_putstr_fd(path, STDERR);
+		ft_putendl_fd(": Permission denied", STDERR);
 		return (EXIT_FAILURE);
 	}
 	if (chdir(path) == -1)
@@ -28,10 +32,7 @@ int	execute_chdir(char ***env, char *path)
 		return (EXIT_FAILURE);
 	}
 	if (!getcwd(current_pwd, 1024))
-	{
-		//errono 에러 출력
 		return (EXIT_FAILURE);
-	}
 	return (add_cd_env(current_pwd, old_pwd, env));
 }
 
