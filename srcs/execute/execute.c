@@ -6,13 +6,13 @@
 /*   By: hkim2 <hkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 19:43:23 by hkim2             #+#    #+#             */
-/*   Updated: 2022/05/24 00:08:34 by hkim2            ###   ########.fr       */
+/*   Updated: 2022/05/24 19:51:33 by hkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
  
-void	execute_cmd_pipe(t_cmd *cmd_list, char ***env)
+void	execute_cmd_pipe(t_cmd *cmd_list, char ***env,  int stdin_dup, int stdout_dup)
 {
 	char	**path;
 	char	*cmd;
@@ -24,7 +24,13 @@ void	execute_cmd_pipe(t_cmd *cmd_list, char ***env)
 	pid = fork();
 	if (pid == 0)
 	{
-		dup2(cmd_list->pip[1], STDOUT_FILENO);
+		//if (cmd_list->right_flag)
+			
+		//else
+		//{
+			dup2(cmd_list->pip[1], STDOUT_FILENO);
+			//close_pipe(cmd_list);	
+		//}
 		close_pipe(cmd_list);
 		cmd_argv = bind_cmd(cmd_list->cmdline);
 		execve(cmd, cmd_argv, *env);
@@ -32,6 +38,12 @@ void	execute_cmd_pipe(t_cmd *cmd_list, char ***env)
 	}
 	else
 	{
+		//if (cmd_list->right_flag)
+		//{
+		//	//set_std_descriptor(stdin_dup, stdout_dup);
+		//}
+		//else
+		//	dup2(cmd_list->pip[0], STDIN_FILENO);
 		dup2(cmd_list->pip[0], STDIN_FILENO);
 		close_pipe(cmd_list);
 		waitpid(pid, &cmd_list->status, 0);
@@ -46,12 +58,11 @@ void	execute_builtin_pipe(t_cmd *cmd_list, char ***env, int stdin_dup, int stdou
 	pid = fork();
 	if (pid == 0)
 	{
-		if (cmd_list->redir_flag)
-		{
+		if (cmd_list->right_flag)
+		{	
+			close_pipe(cmd_list);	
 			exec_builtin(cmd_list, env);
-			dup2(stdout_dup, STDOUT_FILENO);
-			close(stdout_dup);
-			close_pipe(cmd_list);
+			set_std_descriptor(stdin_dup, stdout_dup);
 		}
 		else
 		{
@@ -61,8 +72,8 @@ void	execute_builtin_pipe(t_cmd *cmd_list, char ***env, int stdin_dup, int stdou
 		}
 	}
 	else
-	{
-		dup2(cmd_list->pip[0], STDIN_FILENO);
+	{	if (cmd_list->pipe_flag)
+			dup2(cmd_list->pip[0], STDIN_FILENO);
 		close_pipe(cmd_list);
 		waitpid(pid, &cmd_list->status, 0);
 	}
@@ -70,7 +81,6 @@ void	execute_builtin_pipe(t_cmd *cmd_list, char ***env, int stdin_dup, int stdou
 
 int	execute_builtin(t_cmd *cmd_list, char ***env, int stdin_dup, int stdout_dup)
 {
-
 	int	is_error;
 
 	is_error = exec_builtin(cmd_list, env);
@@ -98,9 +108,9 @@ void	execute_cmd(t_cmd *cmd_list, char ***env, int stdin_dup, int stdout_dup)
 	else
 	{
 		close_pipe(cmd_list);
-		waitpid(pid, &cmd_list->status, 0);
-		set_error_status(env, WEXITSTATUS(cmd_list->status));
 		set_std_descriptor(stdin_dup, stdout_dup);
+		waitpid(-1, &cmd_list->status, 0);
+		set_error_status(env, WEXITSTATUS(cmd_list->status));
 	}
 }
 
@@ -108,23 +118,21 @@ int	execute(t_cmd *cmd_list, char ***env)
 {
 	int		stdin_dup;
 	int		stdout_dup;
+	t_cmd	*tmp;
 	
 	stdin_dup = dup(0);
 	stdout_dup = dup(1);
-	
+	pre_init(cmd_list);
 	while (cmd_list)
 	{	
-		if (!cmd_list->cmdline[0].cmd)
-			return (0);
-		cmd_list->redir_flag = 0;
 		pipe(cmd_list->pip);
-		if (pre_check(cmd_list, stdin_dup, stdout_dup))
+		if (pre_check(cmd_list, env, stdin_dup, stdout_dup))
 			return (EXIT_FAILURE);
 		if (cmd_list->pipe_flag)
 			if (is_builtin(cmd_list->cmdline[0].cmd))
 				execute_builtin_pipe(cmd_list, env, stdin_dup, stdout_dup);
 			else
-				execute_cmd_pipe(cmd_list, env);
+				execute_cmd_pipe(cmd_list, env, stdin_dup, stdout_dup);
 		else
 		{
 			if (is_builtin(cmd_list->cmdline[0].cmd))
