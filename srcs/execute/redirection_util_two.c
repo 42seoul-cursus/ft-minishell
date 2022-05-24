@@ -6,11 +6,11 @@
 /*   By: hkim2 <hkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 19:49:00 by hkim2             #+#    #+#             */
-/*   Updated: 2022/05/24 19:52:43 by hkim2            ###   ########.fr       */
+/*   Updated: 2022/05/24 20:11:29 by hkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../incldes/minishell.h"
+#include "../../includes/minishell.h"
 
 
 void	check_prev_pipe(t_cmd *cmd_list)
