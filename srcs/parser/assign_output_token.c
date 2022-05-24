@@ -20,7 +20,7 @@ int	ft_assign_env(char *in_tok, char **out_token, char **envp)
 	int		env_len;
 
 	in_tok_idx = 0;
-	if (ft_if_question(in_tok, &out_token) == 1)
+	if (ft_if_question(in_tok, &out_token, envp) == 1)
 		return (1);
 	if (ft_if_null_or_d_quote(in_tok, &out_token) == 0)
 		return (0);

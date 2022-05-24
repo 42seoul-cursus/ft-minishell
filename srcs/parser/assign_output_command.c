@@ -6,19 +6,19 @@
 /*   By: jeonghwl <jeonghwl@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 13:55:02 by jeonghwl          #+#    #+#             */
-/*   Updated: 2022/05/23 17:15:46 by jeonghwl         ###   ########.fr       */
+/*   Updated: 2022/05/24 20:50:00 by jeonghwl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	ft_if_question(char *input_token, char ***output_token)
+int	ft_if_question(char *input_token, char ***output_token, char **envp)
 {
 	char	*status;
 
 	if (input_token[1] == '?')
 	{
-		status = getenv("ERROR_STATUS");
+		status = ft_env_value("ERROR_STATUS", envp);
 		if (!status)
 			status = "0";
 		ft_memcpy(**output_token, status, ft_strlen(status));
