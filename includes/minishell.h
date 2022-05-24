@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hkim2 <hkim2@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: jeonghwl <jeonghwl@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 13:57:07 by jeonghwl          #+#    #+#             */
-/*   Updated: 2022/05/24 19:51:20 by hkim2            ###   ########.fr       */
+/*   Updated: 2022/05/24 20:48:26 by jeonghwl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,7 +162,7 @@ t_token				*ft_assign_output_command(t_token *token, char **envp);
 // parser/assign_output_token.c
 void				*ft_assign_output_token(char *input_token, \
 					char *output_token, char **envp);
-int					ft_if_question(char *input_token, char ***output_token);
+int				ft_if_question(char *input_token, char ***output_token, char **envp);
 int					ft_if_null_or_d_quote(char *input_token, \
 					char ***output_token);
 void				ft_if_redir_in_token(t_token *token);

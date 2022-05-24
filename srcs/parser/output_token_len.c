@@ -6,7 +6,7 @@
 /*   By: jeonghwl <jeonghwl@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 13:55:51 by jeonghwl          #+#    #+#             */
-/*   Updated: 2022/05/23 17:15:45 by jeonghwl         ###   ########.fr       */
+/*   Updated: 2022/05/24 20:49:59 by jeonghwl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	ft_env_cnt(char *token, int *count, char **envp)
 	key_len = 0;
 	if (token[1] == '?')
 	{
-		status = getenv("ERROR_STATUS");
+		status = ft_env_value("ERROR_STATUS", envp);
 		if (!status)
 			status = "0";
 		*count += ft_strlen(status);
