@@ -6,7 +6,7 @@
 /*   By: hkim2 <hkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 13:57:07 by jeonghwl          #+#    #+#             */
-/*   Updated: 2022/05/25 18:51:27 by hkim2            ###   ########.fr       */
+/*   Updated: 2022/05/25 20:27:29 by hkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,8 +192,8 @@ void				ft_parse(t_cmd **cmd_list, char *line, char **envp);
 
 //execute/execute.c
 int					execute(t_cmd *cmd_list, char ***env);
-void				execute_cmd_pipe(t_cmd *cmd_list, char ***env, int stdin_dup, int stdout_dup);
-void				execute_builtin_pipe(t_cmd *cmd_list, char ***env, int stdin_dup, int stdout_dup);
+void				execute_cmd_pipe(t_cmd *cmd_list, char ***env);
+void				execute_builtin_pipe(t_cmd *cmd_list, char ***env);
 int					execute_builtin(t_cmd *cmd_list, char ***env, int stdin_dup, int stdout_dup);
 void				execute_cmd(t_cmd *cmd_list, char ***env, int stdin_dup, int stdout_dup);
 
@@ -201,11 +201,13 @@ void				execute_cmd(t_cmd *cmd_list, char ***env, int stdin_dup, int stdout_dup)
 int					is_redirection(char *cmd);
 int					get_cmd_size(t_cmd *cmd_list);
 char				**bind_cmd(t_token *cmdline);
+void				exec_pipe(t_cmd *cmd_list, char ***env);
+void				exec_without_pipe(t_cmd *cmd_list, char ***env, int stdin_dup, int stdout_dup);
 
 //execute/execute_error
 void				close_pipe(t_cmd *cmd_list);
 void				print_execute_error(char *cmd, int error_code);
-
+void				set_child_process_status(t_cmd *cmd_list, char ***env);                                          
 //execute/env_util.c
 char				**get_cmd_path(char **env);
 char				*get_cmd(char **path, char *cmd);
@@ -226,7 +228,7 @@ void				sort_env(char ***env);
 
 //execute/ft_export.c
 int					ft_export(t_cmd *cmd_list, char ***env);
-void				print_export(char **env);
+int					print_export(char **env);
 void				free_split_str(char **str);
 void				print_export_error(char *cmd);
 int					add_env(char *cmd, char ***env);

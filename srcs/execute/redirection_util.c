@@ -6,11 +6,11 @@
 /*   By: hkim2 <hkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 23:17:21 by hkim2             #+#    #+#             */
-/*   Updated: 2022/05/25 18:49:45 by hkim2            ###   ########.fr       */
+/*   Updated: 2022/05/25 20:31:56 by hkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 int	parse_cmd_without_ridir(t_cmd *cmd_list, int non_redir_count)
 {
@@ -48,8 +48,8 @@ int	check_redirection(t_cmd *cmd_list)
 	{
 		if (cmd_list->cmdline[i].redir_flag)
 		{
-			cmd_list->redir_flag = 1;
-			if (cmd_list->cmdline[i + 1].cmd == NULL || cmd_list->cmdline[i + 1].redir_flag)
+			if (cmd_list->cmdline[i + 1].cmd == NULL
+				|| cmd_list->cmdline[i + 1].redir_flag)
 				return (print_syntax_error());
 			else
 			{
@@ -86,7 +86,7 @@ int	check_syntax(t_cmd *cmd_list)
 int	pre_check(t_cmd *cmd_list, char ***env, int stdin_dup, int stdout_dup)
 {
 	int	error;
-	
+
 	if (check_pipe_syntax(cmd_list))
 	{
 		set_error_status(env, 1);
@@ -102,11 +102,10 @@ int	pre_check(t_cmd *cmd_list, char ***env, int stdin_dup, int stdout_dup)
 		set_error_status(env, 1);
 		return (EXIT_FAILURE);
 	}
-	//check_prev_pipe(cmd_list);
 	return (EXIT_SUCCESS);
 }
 
-int	print_syntax_error()
+int	print_syntax_error(void)
 {
 	ft_putendl_fd("Syntax Error", STDERR);
 	return (EXIT_FAILURE);

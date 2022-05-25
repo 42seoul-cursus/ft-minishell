@@ -6,7 +6,7 @@
 /*   By: hkim2 <hkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 20:51:56 by hkim2             #+#    #+#             */
-/*   Updated: 2022/05/22 21:38:48 by hkim2            ###   ########.fr       */
+/*   Updated: 2022/05/25 19:50:39 by hkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,4 +23,12 @@ void	print_execute_error(char *cmd, int error_code)
 	ft_putstr_fd(cmd, STDERR);
 	ft_putendl_fd(": command not found", STDERR);
 	exit(error_code);
+}
+
+void	set_child_process_status(t_cmd *cmd_list, char ***env)
+{
+	if (WTERMSIG(cmd_list->status))
+		set_error_status(env, WTERMSIG(cmd_list->status) + 128);
+	else
+		set_error_status(env, WEXITSTATUS(cmd_list->status));
 }

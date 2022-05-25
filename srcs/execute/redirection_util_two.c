@@ -6,12 +6,11 @@
 /*   By: hkim2 <hkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 19:49:00 by hkim2             #+#    #+#             */
-/*   Updated: 2022/05/25 18:53:02 by hkim2            ###   ########.fr       */
+/*   Updated: 2022/05/25 20:30:36 by hkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
 
 void	check_prev_pipe(t_cmd *cmd_list)
 {
@@ -31,15 +30,13 @@ void	check_prev_pipe(t_cmd *cmd_list)
 void	pre_init(t_cmd *cmd_list)
 {
 	t_cmd	*tmp;
-	
+
 	tmp = cmd_list;
 	while (tmp)
 	{
 		if (tmp->cmdline[0].cmd == NULL)
 			return ;
-		tmp->redir_flag = 0;
 		tmp->right_flag = 0;
-		tmp->prev_pipe_flag = 0;
 		tmp = tmp->next;
 	}
 }

@@ -6,18 +6,18 @@
 /*   By: hkim2 <hkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 21:57:51 by hkim2             #+#    #+#             */
-/*   Updated: 2022/05/24 21:10:35 by hkim2            ###   ########.fr       */
+/*   Updated: 2022/05/25 20:24:26 by hkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int		is_numeric(char *cmd)
+int	is_numeric(char *cmd)
 {
 	int	i;
 
 	i = 0;
-	while(cmd[i])
+	while (cmd[i])
 	{
 		if (!ft_isdigit(cmd[i]))
 			return (0);
@@ -34,16 +34,16 @@ void	print_exit_numeric(char *cmd)
 	ft_putendl_fd(": numeric argument required", STDERR);
 }
 
-void	print_exit_many_arg()
+void	print_exit_many_arg(void)
 {
 	ft_putendl_fd("exit", STDERR);
 	ft_putendl_fd("bash: exit: too many arguments", STDERR);
 }
 
-int		execute_exit(t_cmd *cmd_list)
+int	execute_exit(t_cmd *cmd_list)
 {
 	int	num;
-	
+
 	if (!is_numeric(cmd_list->cmdline[1].cmd))
 	{
 		print_exit_numeric(cmd_list->cmdline[1].cmd);

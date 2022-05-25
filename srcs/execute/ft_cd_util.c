@@ -6,7 +6,7 @@
 /*   By: hkim2 <hkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 00:00:07 by hkim2             #+#    #+#             */
-/*   Updated: 2022/05/24 21:34:46 by hkim2            ###   ########.fr       */
+/*   Updated: 2022/05/25 20:22:02 by hkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	add_cd_env(char *current_pwd, char *old_pwd, char ***env)
 {
 	char	*env_pwd;
 	char	*env_old_pwd;
-		
+
 	env_pwd = ft_strjoin("PWD=", current_pwd);
 	if (!env_pwd)
 		return (EXIT_FAILURE);
