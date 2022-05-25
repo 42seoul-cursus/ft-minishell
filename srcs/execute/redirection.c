@@ -6,7 +6,7 @@
 /*   By: hkim2 <hkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 23:13:05 by hkim2             #+#    #+#             */
-/*   Updated: 2022/05/24 16:29:30 by hkim2            ###   ########.fr       */
+/*   Updated: 2022/05/25 19:01:51 by hkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,7 @@ int	redirection_out(t_cmd *cmd_list, int i)
 
 	fd = open(cmd_list->cmdline[i + 1].cmd, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (fd == -1)
-	{
-		ft_putendl_fd(strerror(errno), 2);
-		return (EXIT_FAILURE);
-	}
+		return (print_file_error(cmd_list->cmdline[i + 1].cmd));
 	dup2(fd, STDOUT_FILENO);
 	close(fd);
 	cmd_list->cmdline[i + 1].redir_flag = 1;
@@ -35,10 +32,7 @@ int	redirection_in(t_cmd *cmd_list, int i)
 
 	fd = open(cmd_list->cmdline[i + 1].cmd, O_RDONLY);
 	if (fd == -1)
-	{
-		ft_putendl_fd(strerror(errno), 2);
-		return (EXIT_FAILURE);
-	}
+		return (print_file_error(cmd_list->cmdline[i + 1].cmd));
 	dup2(fd, STDIN_FILENO);
 	close(fd);
 	cmd_list->cmdline[i + 1].redir_flag = 1;
@@ -51,10 +45,7 @@ int	redirection_out_append(t_cmd *cmd_list, int i)
 
 	fd = open(cmd_list->cmdline[i + 1].cmd, O_CREAT | O_WRONLY | O_APPEND, 0644);
 	if (fd == -1)
-	{
-		ft_putendl_fd(strerror(errno), 2);
-		return (EXIT_FAILURE);
-	}
+		return (print_file_error(cmd_list->cmdline[i + 1].cmd));
 	dup2(fd, STDOUT_FILENO);
 	close(fd);
 	cmd_list->cmdline[i + 1].redir_flag = 1;
@@ -70,10 +61,7 @@ int	redirection_heredoc(t_cmd *cmd_list, int i)
 
 	fd = open(HEREDOC, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (fd == -1)
-	{
-		ft_putendl_fd(strerror(errno), 2);
-		return (EXIT_FAILURE);
-	}
+		return (print_file_error(cmd_list->cmdline[i + 1].cmd));
 	while (1)
 	{
 		str = readline("> ");
@@ -86,10 +74,7 @@ int	redirection_heredoc(t_cmd *cmd_list, int i)
 	close(fd);
 	fd = open(HEREDOC, O_RDONLY, 0644);
 	if (fd == -1)
-	{
-		ft_putendl_fd(strerror(errno), 2);
-		return (EXIT_FAILURE);
-	}
+		return (print_file_error(cmd_list->cmdline[i + 1].cmd));
 	dup2(fd, STDIN_FILENO);
 	close(fd);
 	cmd_list->cmdline[i + 1].redir_flag = 1;

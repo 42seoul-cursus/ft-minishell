@@ -6,7 +6,7 @@
 /*   By: hkim2 <hkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 18:58:49 by hkim2             #+#    #+#             */
-/*   Updated: 2022/05/24 00:32:25 by hkim2            ###   ########.fr       */
+/*   Updated: 2022/05/25 18:59:27 by hkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ int	ft_export(t_cmd *cmd_list, char ***env)
 			is_error = EXIT_FAILURE;
 		}
 		else
-			is_error = add_env(cmd, env);
+			add_env(cmd, env);
 		free(cmd);
 	}
 	return (is_error);

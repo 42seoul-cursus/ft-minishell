@@ -6,7 +6,7 @@
 /*   By: hkim2 <hkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 23:17:21 by hkim2             #+#    #+#             */
-/*   Updated: 2022/05/24 19:52:54 by hkim2            ###   ########.fr       */
+/*   Updated: 2022/05/25 18:49:45 by hkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,8 @@ int	check_redirection(t_cmd *cmd_list)
 				return (print_syntax_error());
 			else
 			{
-				set_redirection(cmd_list, i);
+				if (set_redirection(cmd_list, i))
+					return (EXIT_FAILURE);
 				i++;
 			}
 		}
@@ -62,7 +63,6 @@ int	check_redirection(t_cmd *cmd_list)
 		i++;
 	}
 	parse_cmd_without_ridir(cmd_list, non_redir_count);
-	i = 0;
 	return (EXIT_SUCCESS);
 }
 
@@ -94,7 +94,7 @@ int	pre_check(t_cmd *cmd_list, char ***env, int stdin_dup, int stdout_dup)
 	}
 	if (check_syntax(cmd_list))
 	{
-		set_error_status(env, 1);
+		set_error_status(env, 258);
 		return (EXIT_FAILURE);
 	}
 	if (check_redirection(cmd_list))
@@ -102,7 +102,7 @@ int	pre_check(t_cmd *cmd_list, char ***env, int stdin_dup, int stdout_dup)
 		set_error_status(env, 1);
 		return (EXIT_FAILURE);
 	}
-	check_prev_pipe(cmd_list);
+	//check_prev_pipe(cmd_list);
 	return (EXIT_SUCCESS);
 }
 

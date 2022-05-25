@@ -6,7 +6,7 @@
 /*   By: hkim2 <hkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 19:49:00 by hkim2             #+#    #+#             */
-/*   Updated: 2022/05/24 20:11:29 by hkim2            ###   ########.fr       */
+/*   Updated: 2022/05/25 18:53:02 by hkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,12 @@ int	check_pipe_syntax(t_cmd *cmd_list)
 		tmp = tmp->next;
 	}
 	return (EXIT_SUCCESS);
+}
+
+int	print_file_error(char *filename)
+{
+	ft_putstr_fd(filename, 2);
+	ft_putstr_fd(": ", 2);
+	ft_putendl_fd(strerror(errno), 2);
+	return (EXIT_FAILURE);
 }

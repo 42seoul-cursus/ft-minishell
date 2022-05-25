@@ -6,7 +6,7 @@
 /*   By: hkim2 <hkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 13:57:07 by jeonghwl          #+#    #+#             */
-/*   Updated: 2022/05/24 21:47:07 by hkim2            ###   ########.fr       */
+/*   Updated: 2022/05/25 18:51:27 by hkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -287,6 +287,8 @@ int					print_syntax_error();
 void				pre_init(t_cmd *cmd_list);
 int					check_pipe_syntax(t_cmd *cmd_list);
 void				check_prev_pipe(t_cmd *cmd_list);
+int					print_file_error(char *filename);
+
 //execute/pipe_util.c
 void				set_std_descriptor(int stdin_dup, int stdout_dup);
 
