@@ -6,16 +6,17 @@
 /*   By: jeonghwl <jeonghwl@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 09:07:40 by jeonghwl          #+#    #+#             */
-/*   Updated: 2022/05/17 15:04:54 by jeonghwl         ###   ########.fr       */
+/*   Updated: 2022/05/25 13:41:03 by jeonghwl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	ft_print_title_and_dup2(void)
+void	ft_print_title(int argc)
 {
 	char	*username;
 
+	(void)argc;
 	username = getenv("USER");
 	printf("\e[2J\e[H\e[33;33m-----------------------------------------");
 	printf("\e[33;33m--------------------------\e[0m\n");
@@ -34,8 +35,6 @@ void	ft_print_title_and_dup2(void)
 	printf("\e[33;33m-----------------------------------------");
 	printf("\e[33;33m--------------------------\e[0m\n");
 	printf("\n\e[33;32m                          Welcome %s\e[0m\n\n", username);
-	dup2(STDIN, 100);
-	dup2(STDOUT, 101);
 }
 
 char	*ft_strjoin_location(char *s1, char const *s2)

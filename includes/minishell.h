@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hkim2 <hkim2@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: jeonghwl <jeonghwl@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 13:57:07 by jeonghwl          #+#    #+#             */
 /*   Updated: 2022/05/25 18:51:27 by hkim2            ###   ########.fr       */
@@ -150,7 +150,7 @@ void				ft_signal(void);
 
 // parser/print_termianl.c
 char				*ft_strjoin_location(char *s1, char const *s2);
-void				ft_print_title_and_dup2(void);
+void				ft_print_title(int argc);
 char				*ft_init_location(void);
 
 //parser/assign_command.c
