@@ -6,7 +6,7 @@
 /*   By: jeonghwl <jeonghwl@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 13:56:13 by jeonghwl          #+#    #+#             */
-/*   Updated: 2022/05/25 13:04:22 by jeonghwl         ###   ########.fr       */
+/*   Updated: 2022/05/25 13:41:06 by jeonghwl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	main(int argc, char *argv[], char *envp[])
 	char	**copied_env;
 	char	*location;
 
-	ft_print_title();
+	ft_print_title(argc);
 	copied_env = ft_init_env(envp);
 	ft_signal();
 	init_env(&copied_env);
@@ -79,6 +79,8 @@ int	main(int argc, char *argv[], char *envp[])
 		command = readline(location);
 		if (!command)
 		{
+			ft_putstr_fd("\x1b[1A", STDOUT);
+			ft_putstr_fd(location, STDOUT);
 			ft_putstr_fd("exit\n", STDOUT);
 			return (0);
 		}
@@ -86,6 +88,5 @@ int	main(int argc, char *argv[], char *envp[])
 			ft_minishell(command, &command_list, &copied_env, argv);
 		free(command);
 	}
-	(void)argc;
 	return (0);
 }

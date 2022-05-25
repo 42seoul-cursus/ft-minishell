@@ -6,16 +6,17 @@
 /*   By: jeonghwl <jeonghwl@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 09:07:40 by jeonghwl          #+#    #+#             */
-/*   Updated: 2022/05/25 13:04:21 by jeonghwl         ###   ########.fr       */
+/*   Updated: 2022/05/25 13:41:03 by jeonghwl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	ft_print_title(void)
+void	ft_print_title(int argc)
 {
 	char	*username;
 
+	(void)argc;
 	username = getenv("USER");
 	printf("\e[2J\e[H\e[33;33m-----------------------------------------");
 	printf("\e[33;33m--------------------------\e[0m\n");

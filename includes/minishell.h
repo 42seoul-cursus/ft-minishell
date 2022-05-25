@@ -6,7 +6,7 @@
 /*   By: jeonghwl <jeonghwl@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 13:57:07 by jeonghwl          #+#    #+#             */
-/*   Updated: 2022/05/25 13:04:20 by jeonghwl         ###   ########.fr       */
+/*   Updated: 2022/05/25 13:41:02 by jeonghwl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,7 +150,7 @@ void				ft_signal(void);
 
 // parser/print_termianl.c
 char				*ft_strjoin_location(char *s1, char const *s2);
-void				ft_print_title(void);
+void				ft_print_title(int argc);
 char				*ft_init_location(void);
 
 //parser/assign_command.c
