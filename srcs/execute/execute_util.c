@@ -6,7 +6,7 @@
 /*   By: hkim2 <hkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 21:49:13 by hkim2             #+#    #+#             */
-/*   Updated: 2022/05/25 20:21:11 by hkim2            ###   ########.fr       */
+/*   Updated: 2022/05/27 01:50:32 by hkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,12 @@ int	get_cmd_size(t_cmd *cmd_list)
 	return (i);
 }
 
-void	exec_pipe(t_cmd *cmd_list, char ***env)
+void	exec_pipe(t_cmd *cmd_list, char ***env, int in_dup, int out_dup)
 {
 	if (is_builtin(cmd_list->cmdline[0].cmd))
-		execute_builtin_pipe(cmd_list, env);
+		execute_builtin_pipe(cmd_list, env, in_dup, out_dup);
 	else
-		execute_cmd_pipe(cmd_list, env);
+		execute_cmd_pipe(cmd_list, env, in_dup, out_dup);
 }
 
 void	exec_without_pipe(t_cmd *cmd_list, char ***env, int in_dup, int out_dup)

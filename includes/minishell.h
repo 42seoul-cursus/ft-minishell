@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeonghwl <jeonghwl@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: hkim2 <hkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 13:57:07 by jeonghwl          #+#    #+#             */
-/*   Updated: 2022/05/25 20:27:29 by hkim2            ###   ########.fr       */
+/*   Updated: 2022/05/27 01:50:49 by hkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,8 +192,8 @@ void				ft_parse(t_cmd **cmd_list, char *line, char **envp);
 
 //execute/execute.c
 int					execute(t_cmd *cmd_list, char ***env);
-void				execute_cmd_pipe(t_cmd *cmd_list, char ***env);
-void				execute_builtin_pipe(t_cmd *cmd_list, char ***env);
+void				execute_cmd_pipe(t_cmd *cmd_list, char ***env, int stdin_dup, int stdout_dup);
+void				execute_builtin_pipe(t_cmd *cmd_list, char ***env, int stdin_dup, int stdout_dup);
 int					execute_builtin(t_cmd *cmd_list, char ***env, int stdin_dup, int stdout_dup);
 void				execute_cmd(t_cmd *cmd_list, char ***env, int stdin_dup, int stdout_dup);
 
@@ -201,7 +201,7 @@ void				execute_cmd(t_cmd *cmd_list, char ***env, int stdin_dup, int stdout_dup)
 int					is_redirection(char *cmd);
 int					get_cmd_size(t_cmd *cmd_list);
 char				**bind_cmd(t_token *cmdline);
-void				exec_pipe(t_cmd *cmd_list, char ***env);
+void				exec_pipe(t_cmd *cmd_list, char ***env, int stdin_dup, int stdout_dup);
 void				exec_without_pipe(t_cmd *cmd_list, char ***env, int stdin_dup, int stdout_dup);
 
 //execute/execute_error
