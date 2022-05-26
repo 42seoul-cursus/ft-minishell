@@ -6,7 +6,11 @@
 /*   By: jeonghwl <jeonghwl@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 13:56:13 by jeonghwl          #+#    #+#             */
+<<<<<<< HEAD
+/*   Updated: 2022/05/25 20:35:00 by hkim2            ###   ########.fr       */
+=======
 /*   Updated: 2022/05/25 13:41:06 by jeonghwl         ###   ########.fr       */
+>>>>>>> d0b5304960c7d8f5b98761bd4a964e2a652ee084
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +59,7 @@ void	ft_free_list(t_cmd *command_list)
 void	ft_minishell(char *command, t_cmd **command_list, \
 char ***copied_env, char *argv[])
 {
+	(void)*argv;
 	add_history(command);
 	ft_parse(command_list, command, *copied_env);
 	execute(*command_list, copied_env);

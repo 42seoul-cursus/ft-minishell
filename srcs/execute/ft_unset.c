@@ -6,11 +6,11 @@
 /*   By: hkim2 <hkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 22:12:29 by hkim2             #+#    #+#             */
-/*   Updated: 2022/05/13 19:04:48 by hkim2            ###   ########.fr       */
+/*   Updated: 2022/05/25 20:29:28 by hkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 void	print_unset_error(char *cmd)
 {
@@ -23,7 +23,7 @@ int	valid_unset_cmd(char *cmd)
 {
 	int		i;
 	int		len;
-	
+
 	if (!is_vaild_word(cmd[0]))
 		return (EXIT_FAILURE);
 	len = ft_strlen(cmd);
@@ -36,7 +36,6 @@ int	valid_unset_cmd(char *cmd)
 	}
 	return (EXIT_SUCCESS);
 }
-
 
 void	remove_env(char *cmd, char ***env)
 {
@@ -51,11 +50,11 @@ void	remove_env(char *cmd, char ***env)
 	tmp = (char **)malloc(sizeof(char *) * len);
 	i = -1;
 	len = 0;
-	re_index = get_removal_index(cmd, *env);	
+	re_index = get_removal_index(cmd, *env);
 	while ((*env)[++i])
 	{
 		if (re_index == i)
-			continue;
+			continue ;
 		tmp[len++] = ft_strdup((*env)[i]);
 	}
 	tmp[len] = NULL;
@@ -93,7 +92,7 @@ int	ft_unset(t_cmd *cmd_list, char ***env)
 	char	*cmd;
 	int		i;
 	int		is_error;
-	
+
 	is_error = EXIT_SUCCESS;
 	if (get_cmd_size(cmd_list) == 1)
 		return (EXIT_SUCCESS);

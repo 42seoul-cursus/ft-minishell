@@ -6,7 +6,7 @@
 /*   By: hkim2 <hkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 18:14:40 by hkim2             #+#    #+#             */
-/*   Updated: 2022/05/23 23:49:12 by hkim2            ###   ########.fr       */
+/*   Updated: 2022/05/25 19:49:14 by hkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	find_cmd_index(char **path, char *cmd)
 	{
 		str = ft_strjoin(path[i], cmd);
 		if (stat(str, &file_info))
-				continue;
+			continue ;
 		if (S_ISREG(file_info.st_mode))
 		{
 			if (!(file_info.st_mode & S_IXUSR))

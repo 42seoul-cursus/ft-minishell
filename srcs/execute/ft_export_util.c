@@ -6,11 +6,11 @@
 /*   By: hkim2 <hkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 21:43:58 by hkim2             #+#    #+#             */
-/*   Updated: 2022/05/24 00:13:50 by hkim2            ###   ########.fr       */
+/*   Updated: 2022/05/25 20:25:28 by hkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 void	free_split_str(char **str)
 {
@@ -50,7 +50,8 @@ int	get_duplicate_index(char *cmd, char **env)
 		if (!split)
 			return (-1);
 		if (ft_strlen(split[0]) == ft_strlen(split_cmd[0]))
-			if (ft_strncmp(split[0], split_cmd[0], ft_strlen(split_cmd[0])) == 0)
+			if (ft_strncmp(split[0], split_cmd[0],
+					ft_strlen(split_cmd[0])) == 0)
 				return (i);
 		i++;
 	}
@@ -77,8 +78,8 @@ int	add_new_value(char *cmd, char ***env)
 {
 	int		i;
 	char	**tmp;
-	int		len; 
-	
+	int		len;
+
 	len = 0;
 	while ((*env)[len])
 		len++;
