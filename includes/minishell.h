@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeonghwl <jeonghwl@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: hkim2 <hkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 13:57:07 by jeonghwl          #+#    #+#             */
-/*   Updated: 2022/05/27 19:59:21 by jeonghwl         ###   ########.fr       */
+/*   Updated: 2022/05/27 20:08:09 by hkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,7 +151,7 @@ int					is_redirection(char *cmd);
 
 //execute/env_util.c
 char				**get_cmd_path(char **env);
-char				*get_cmd(char **path, char *cmd);
+char				*get_cmd(char **path, char *cmd, int *status);
 int					find_cmd_index(char **path, char *cmd);
 char				*check_completed_cmd(char *cmd);
 void				init_env(char ***env);

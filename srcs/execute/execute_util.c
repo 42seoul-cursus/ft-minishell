@@ -6,7 +6,7 @@
 /*   By: hkim2 <hkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 21:49:13 by hkim2             #+#    #+#             */
-/*   Updated: 2022/05/27 19:10:50 by hkim2            ###   ########.fr       */
+/*   Updated: 2022/05/27 19:32:19 by hkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,12 @@ void	exec_without_pipe(t_cmd *cmd_list, char ***env, int in_dup, int out_dup)
 
 int		check_path(t_cmd *cmd_list, char ***path, char **cmd, char **env)
 {
+	int	status;
+
+	status = 0;
 	*path = get_cmd_path(env);
-	*cmd = get_cmd(*path, cmd_list->cmdline[0].cmd);
-	if (*cmd == NULL)
+	*cmd = get_cmd(*path, cmd_list->cmdline[0].cmd, &status);
+	if (status)
 	{
 		ft_putstr_fd(cmd_list->cmdline[0].cmd, 2);
 		ft_putendl_fd(": No such file or directory", 2);

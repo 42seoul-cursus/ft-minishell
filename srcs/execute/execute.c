@@ -6,13 +6,14 @@
 /*   By: hkim2 <hkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 19:43:23 by hkim2             #+#    #+#             */
-/*   Updated: 2022/05/27 19:10:06 by hkim2            ###   ########.fr       */
+/*   Updated: 2022/05/27 19:32:51 by hkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	execute_cmd_pipe(t_cmd *cmd_list, char ***env, int stdin_dup, int stdout_dup)
+void	execute_cmd_pipe(t_cmd *cmd_list, char ***env,
+		int stdin_dup, int stdout_dup)
 {
 	char	**path;
 	char	*cmd;
@@ -110,8 +111,8 @@ int	execute(t_cmd *cmd_list, char ***env)
 
 	stdin_dup = dup(0);
 	stdout_dup = dup(1);
-	dup2(stdin_dup, STDIN_FILENO);
-	dup2(stdout_dup, STDOUT_FILENO);
+	//dup2(stdin_dup, STDIN_FILENO);
+	//dup2(stdout_dup, STDOUT_FILENO);
 	pre_init(cmd_list);
 	while (cmd_list)
 	{	

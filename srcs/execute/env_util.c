@@ -6,7 +6,7 @@
 /*   By: hkim2 <hkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 18:14:40 by hkim2             #+#    #+#             */
-/*   Updated: 2022/05/27 19:08:17 by hkim2            ###   ########.fr       */
+/*   Updated: 2022/05/27 19:31:19 by hkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ char	*check_completed_cmd(char *cmd)
 	return (NULL);
 }
 
-char	*get_cmd(char **path, char *cmd)
+char	*get_cmd(char **path, char *cmd, int *status)
 {
 	int		cmd_idx;
 	char	*add_slash_cmd;
@@ -52,6 +52,11 @@ char	*get_cmd(char **path, char *cmd)
 
 	if (check_completed_cmd(cmd))
 		return (cmd);
+	if (path == NULL)
+	{
+		*status = 1;
+		return (NULL);
+	}
 	add_slash_cmd = ft_strjoin("/", cmd);
 	if (!add_slash_cmd)
 		return (NULL);
@@ -72,8 +77,6 @@ int	find_cmd_index(char **path, char *cmd)
 	struct stat	file_info;
 
 	i = -1;
-	if (path == NULL)
-		return (-1);
 	while (path[++i])
 	{
 		str = ft_strjoin(path[i], cmd);
