@@ -6,7 +6,7 @@
 /*   By: hkim2 <hkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 19:43:23 by hkim2             #+#    #+#             */
-/*   Updated: 2022/05/27 02:16:25 by hkim2            ###   ########.fr       */
+/*   Updated: 2022/05/27 15:09:07 by hkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,10 @@ int	execute(t_cmd *cmd_list, char ***env)
 	{	
 		pipe(cmd_list->pip);
 		if (pre_check(cmd_list, env, stdin_dup, stdout_dup))
+		{
+			set_std_descriptor(stdin_dup, stdout_dup);
 			return (EXIT_FAILURE);
+		}
 		if (cmd_list->pipe_flag)
 			exec_pipe(cmd_list, env, stdin_dup, stdout_dup);
 		else
