@@ -6,7 +6,7 @@
 /*   By: hkim2 <hkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 18:14:40 by hkim2             #+#    #+#             */
-/*   Updated: 2022/05/25 19:49:14 by hkim2            ###   ########.fr       */
+/*   Updated: 2022/05/27 19:08:17 by hkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,21 @@ char	**get_cmd_path(char **env)
 {
 	int		i;
 	char	**path;
-	char	*get_path;
+	int		len;
 
-	get_path = getenv("PATH");
-	if (!get_path)
+	len = 0;
+	while (env[len])
+		len++;
+	i = -1;
+	while (env[++i])
+		if (ft_strncmp(env[i], "PATH=", 5) == 0)
+			break;
+	if (len == i)
 		return (NULL);
-	path = ft_split(get_path, ':');
-	if (path)
-		return (path);
-	return (NULL);
+	path = ft_split(env[i] + 5, ':');
+	if (!path)
+		return (NULL);
+	return (path);
 }
 
 char	*check_completed_cmd(char *cmd)
@@ -66,6 +72,8 @@ int	find_cmd_index(char **path, char *cmd)
 	struct stat	file_info;
 
 	i = -1;
+	if (path == NULL)
+		return (-1);
 	while (path[++i])
 	{
 		str = ft_strjoin(path[i], cmd);

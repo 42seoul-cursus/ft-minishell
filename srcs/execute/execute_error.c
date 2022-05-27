@@ -6,7 +6,7 @@
 /*   By: hkim2 <hkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 20:51:56 by hkim2             #+#    #+#             */
-/*   Updated: 2022/05/25 19:50:39 by hkim2            ###   ########.fr       */
+/*   Updated: 2022/05/27 19:10:43 by hkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,17 @@ void	set_child_process_status(t_cmd *cmd_list, char ***env)
 		set_error_status(env, WTERMSIG(cmd_list->status) + 128);
 	else
 		set_error_status(env, WEXITSTATUS(cmd_list->status));
+}
+
+int	is_redirection(char *cmd)
+{
+	if (ft_strncmp(cmd, ">", 1) == 0)
+		return (1);
+	if (ft_strncmp(cmd, "<", 1) == 0)
+		return (1);
+	if (ft_strncmp(cmd, ">>", 2) == 0)
+		return (1);
+	if (ft_strncmp(cmd, "<<", 2) == 0)
+		return (1);
+	return (0);
 }

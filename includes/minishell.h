@@ -6,7 +6,7 @@
 /*   By: hkim2 <hkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 13:57:07 by jeonghwl          #+#    #+#             */
-/*   Updated: 2022/05/27 18:08:32 by hkim2            ###   ########.fr       */
+/*   Updated: 2022/05/27 19:11:36 by hkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,7 +198,7 @@ int					execute_builtin(t_cmd *cmd_list, char ***env, int stdin_dup, int stdout_
 void				execute_cmd(t_cmd *cmd_list, char ***env, int stdin_dup, int stdout_dup);
 
 //execute/execute_util.c
-int					is_redirection(char *cmd);
+int					check_path(t_cmd *cmd_list, char ***path, char **cmd, char **env);
 int					get_cmd_size(t_cmd *cmd_list);
 char				**bind_cmd(t_token *cmdline);
 void				exec_pipe(t_cmd *cmd_list, char ***env, int stdin_dup, int stdout_dup);
@@ -207,7 +207,9 @@ void				exec_without_pipe(t_cmd *cmd_list, char ***env, int stdin_dup, int stdou
 //execute/execute_error
 void				close_pipe(t_cmd *cmd_list);
 void				print_execute_error(char *cmd, int error_code);
-void				set_child_process_status(t_cmd *cmd_list, char ***env);                                          
+void				set_child_process_status(t_cmd *cmd_list, char ***env); 
+int					is_redirection(char *cmd);
+                                         
 //execute/env_util.c
 char				**get_cmd_path(char **env);
 char				*get_cmd(char **path, char *cmd);
@@ -258,6 +260,7 @@ int					execute_home(t_cmd *cmd_list, char ***env, char *home, char *path);
 int					print_cd_error(char *cmd);
 int					add_cd_env(char *current_pwd, char *old_pwd, char ***env);
 int					check_dir(char *path);
+int					check_file(char *path);
 
 //execute/ft_echo.c
 int					ft_echo(t_cmd *cmd_list);

@@ -6,7 +6,7 @@
 /*   By: hkim2 <hkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 21:49:13 by hkim2             #+#    #+#             */
-/*   Updated: 2022/05/27 01:50:32 by hkim2            ###   ########.fr       */
+/*   Updated: 2022/05/27 19:10:50 by hkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,19 +29,6 @@ char	**bind_cmd(t_token *cmdline)
 		cmd_arg[i] = ft_strdup(cmdline[i].cmd);
 	cmd_arg[i] = NULL;
 	return (cmd_arg);
-}
-
-int	is_redirection(char *cmd)
-{
-	if (ft_strncmp(cmd, ">", 1) == 0)
-		return (1);
-	if (ft_strncmp(cmd, "<", 1) == 0)
-		return (1);
-	if (ft_strncmp(cmd, ">>", 2) == 0)
-		return (1);
-	if (ft_strncmp(cmd, "<<", 2) == 0)
-		return (1);
-	return (0);
 }
 
 int	get_cmd_size(t_cmd *cmd_list)
@@ -68,4 +55,17 @@ void	exec_without_pipe(t_cmd *cmd_list, char ***env, int in_dup, int out_dup)
 		execute_builtin(cmd_list, env, in_dup, out_dup);
 	else
 		execute_cmd(cmd_list, env, in_dup, out_dup);
+}
+
+int		check_path(t_cmd *cmd_list, char ***path, char **cmd, char **env)
+{
+	*path = get_cmd_path(env);
+	*cmd = get_cmd(*path, cmd_list->cmdline[0].cmd);
+	if (*cmd == NULL)
+	{
+		ft_putstr_fd(cmd_list->cmdline[0].cmd, 2);
+		ft_putendl_fd(": No such file or directory", 2);
+		return (EXIT_FAILURE);
+	}
+	return (EXIT_SUCCESS);
 }

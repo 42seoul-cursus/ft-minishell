@@ -6,7 +6,7 @@
 /*   By: hkim2 <hkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 00:00:07 by hkim2             #+#    #+#             */
-/*   Updated: 2022/05/25 20:22:02 by hkim2            ###   ########.fr       */
+/*   Updated: 2022/05/27 19:11:56 by hkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,21 @@ int	check_dir(char *path)
 	{
 		if (!(file_info.st_mode & S_IXUSR))
 			return (-1);
+		return (EXIT_SUCCESS);
+	}
+	return (EXIT_FAILURE);
+}
+
+int	check_file(char *path)
+{
+	struct stat	file_info;
+
+	if (stat(path, &file_info) == -1)
+		return (EXIT_FAILURE);
+	if (S_ISREG(file_info.st_mode))
+	{
+		if (!(file_info.st_mode & S_IXUSR))
+			return (EXIT_FAILURE);
 		return (EXIT_SUCCESS);
 	}
 	return (EXIT_FAILURE);

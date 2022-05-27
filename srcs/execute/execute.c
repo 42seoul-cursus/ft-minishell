@@ -6,7 +6,7 @@
 /*   By: hkim2 <hkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 19:43:23 by hkim2             #+#    #+#             */
-/*   Updated: 2022/05/27 16:34:56 by hkim2            ###   ########.fr       */
+/*   Updated: 2022/05/27 19:10:06 by hkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ void	execute_cmd_pipe(t_cmd *cmd_list, char ***env, int stdin_dup, int stdout_du
 	char	**cmd_argv;
 	pid_t	pid;
 
-	path = get_cmd_path(*env);
-	cmd = get_cmd(path, cmd_list->cmdline[0].cmd);
+	if (check_path(cmd_list, &path, &cmd, *env))
+		return ;
 	pid = fork();
 	if (pid == 0)
 	{
@@ -84,8 +84,8 @@ void	execute_cmd(t_cmd *cmd_list, char ***env, int stdin_dup, int stdout_dup)
 	char	**cmd_argv;
 	pid_t	pid;
 
-	path = get_cmd_path(*env);
-	cmd = get_cmd(path, cmd_list->cmdline[0].cmd);
+	if (check_path(cmd_list, &path, &cmd, *env))
+		return ;
 	pid = fork();
 	if (pid == 0)
 	{
