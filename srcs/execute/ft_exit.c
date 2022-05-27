@@ -6,7 +6,7 @@
 /*   By: hkim2 <hkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 21:57:51 by hkim2             #+#    #+#             */
-/*   Updated: 2022/05/25 20:24:26 by hkim2            ###   ########.fr       */
+/*   Updated: 2022/05/27 18:07:22 by hkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	print_exit_many_arg(void)
 
 int	execute_exit(t_cmd *cmd_list)
 {
-	int	num;
+	long long	num;
 
 	if (!is_numeric(cmd_list->cmdline[1].cmd))
 	{
@@ -54,8 +54,13 @@ int	execute_exit(t_cmd *cmd_list)
 		print_exit_many_arg();
 		return (EXIT_FAILURE);
 	}
+	num = ft_atoi2(cmd_list->cmdline[1].cmd);
+	if (num < 0)
+	{
+		print_exit_numeric(cmd_list->cmdline[1].cmd);
+		exit(255);
+	}
 	ft_putendl_fd("exit", STDOUT);
-	num = ft_atoi(cmd_list->cmdline[1].cmd, NULL) % 256;
 	exit(num);
 }
 
