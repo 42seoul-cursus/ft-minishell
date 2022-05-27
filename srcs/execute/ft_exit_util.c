@@ -6,7 +6,7 @@
 /*   By: hkim2 <hkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 18:07:25 by hkim2             #+#    #+#             */
-/*   Updated: 2022/05/27 18:08:07 by hkim2            ###   ########.fr       */
+/*   Updated: 2022/05/27 21:22:18 by hkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ long long	ft_atoi2(const char *str)
 			sign = -1;
 		str++;
 	}
+	if (ft_strlen(str) > 19)
+		return (-1);
 	while (*str >= '0' && *str <= '9')
 	{
 		value = value * 10;
