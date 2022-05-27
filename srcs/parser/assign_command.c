@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   assign_command.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeonghwl <jeonghwl@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: hkim2 <hkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 08:16:29 by jeonghwl          #+#    #+#             */
-/*   Updated: 2022/05/27 19:54:40 by jeonghwl         ###   ########.fr       */
+/*   Updated: 2022/05/27 21:41:09 by hkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	*ft_init_t_cmd(t_cmd *result, int pipe_status, int start_index)
 {
+	(void)start_index;
 	result->path = NULL;
 	result->pipe_flag = pipe_status;
 	result->next = NULL;
