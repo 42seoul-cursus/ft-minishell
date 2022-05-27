@@ -68,10 +68,8 @@ int	ft_quote_assign_and_cnt(char *in_tok, char **out_tok, char **envp, char q)
 void	*ft_assign_output_token(char *in_tok, char *out_tok, char **ev)
 {
 	int		i;
-	int		size;
 	char	*out_tok_tmp;
 
-	size = 0;
 	i = -1;
 	out_tok_tmp = out_tok;
 	while (in_tok[++i])
