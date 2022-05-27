@@ -6,7 +6,7 @@
 /*   By: hkim2 <hkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 18:14:40 by hkim2             #+#    #+#             */
-/*   Updated: 2022/05/27 19:31:19 by hkim2            ###   ########.fr       */
+/*   Updated: 2022/05/27 20:16:35 by hkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	**get_cmd_path(char **env)
 	i = -1;
 	while (env[++i])
 		if (ft_strncmp(env[i], "PATH=", 5) == 0)
-			break;
+			break ;
 	if (len == i)
 		return (NULL);
 	path = ft_split(env[i] + 5, ':');

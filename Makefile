@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jeonghwl <jeonghwl@student.42seoul.kr>     +#+  +:+       +#+         #
+#    By: hkim2 <hkim2@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/12 14:11:43 by jeonghwl          #+#    #+#              #
-#    Updated: 2022/05/27 20:00:33 by jeonghwl         ###   ########.fr        #
+#    Updated: 2022/05/27 20:30:24 by hkim2            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 CC 				= gcc
 RM				= rm -rf
 #-Werror을 하면 not uses가 떠서 잠시 주석처리
-CFLAGS 			= -Wall -Wextra -g -fsanitize=address# -Werror
+CFLAGS 			= -Wall -Wextra -g -fsanitize=address -Werror
 NAME 			= minishell
 
 READLINE_LIB 	= -lreadline -L/usr/local/opt/readline/lib
@@ -55,6 +55,7 @@ SRC 		= srcs/minishell.c \
 					srcs/execute/execute_error.c \
 					srcs/execute/error_status.c \
 					srcs/execute/redirection_util_two.c \
+					srcs/execute/redirection_util_fd.c \
 				
 OBJ_DIR 	= objs
 OBJ 		= $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
