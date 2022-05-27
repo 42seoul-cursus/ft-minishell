@@ -6,7 +6,7 @@
 /*   By: hkim2 <hkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 13:57:07 by jeonghwl          #+#    #+#             */
-/*   Updated: 2022/05/27 20:08:09 by hkim2            ###   ########.fr       */
+/*   Updated: 2022/05/27 20:32:37 by hkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,9 +125,9 @@ void				ft_parse(t_cmd **cmd_list, char *line, char **envp);
 //execute/execute.c
 int					execute(t_cmd *cmd_list, char ***env);
 void				execute_cmd_pipe(t_cmd *cmd_list, char ***env, \
-						int stdin_dup, int stdout_dup);
+						int stdout_dup);
 void				execute_builtin_pipe(t_cmd *cmd_list, char ***env, \
-						int stdin_dup, int stdout_dup);
+						int stdout_dup);
 int					execute_builtin(t_cmd *cmd_list, char ***env, \
 						int stdin_dup, int stdout_dup);
 void				execute_cmd(t_cmd *cmd_list, char ***env, \
@@ -244,10 +244,16 @@ int					check_pipe_syntax(t_cmd *cmd_list);
 void				check_prev_pipe(t_cmd *cmd_list);
 int					print_file_error(char *filename);
 
+//execute/redirection_util_fd.c
+int					read_heredoc(t_cmd *cmd_list, char *str, int i);
+void				set_dup2(int in, int out);
+void				set_stdin(int fd);
+
 //execute/pipe_util.c
 void				set_std_descriptor(int stdin_dup, int stdout_dup);
 
 //execute/error_status.c
 void				set_error_status(char ***env, int status);
+void				set_parent_process_status(t_cmd *cmd_list, char ***env);
 
 #endif

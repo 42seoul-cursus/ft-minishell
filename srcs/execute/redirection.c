@@ -6,7 +6,7 @@
 /*   By: hkim2 <hkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 23:13:05 by hkim2             #+#    #+#             */
-/*   Updated: 2022/05/27 17:14:13 by hkim2            ###   ########.fr       */
+/*   Updated: 2022/05/27 20:28:09 by hkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,18 +61,15 @@ int	redirection_heredoc(t_cmd *cmd_list, int i, int in, int out)
 	int		tmp_fd;
 
 	tmp_fd = dup(STDOUT_FILENO);
-	dup2(out, STDOUT_FILENO);
-	dup2(in, STDIN_FILENO);
+	set_dup2(in, out);
 	fd = open(HEREDOC, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (fd == -1)
 		return (print_file_error(cmd_list->cmdline[i + 1].cmd));
 	while (1)
 	{
 		str = readline("> ");
-		if (str)
-			if (ft_strncmp(str, cmd_list->cmdline[i + 1].cmd,
-					ft_strlen(cmd_list->cmdline[i + 1].cmd)) == 0)
-				break ;
+		if (!read_heredoc(cmd_list, str, i))
+			break ;
 		ft_putendl_fd(str, fd);
 		free(str);
 	}
@@ -81,8 +78,7 @@ int	redirection_heredoc(t_cmd *cmd_list, int i, int in, int out)
 	fd = open(HEREDOC, O_RDONLY, 0644);
 	if (fd == -1)
 		return (print_file_error(cmd_list->cmdline[i + 1].cmd));
-	dup2(fd, STDIN_FILENO);
-	close(fd);
+	set_stdin(fd);
 	cmd_list->cmdline[i + 1].redir_flag = 1;
 	return (EXIT_SUCCESS);
 }

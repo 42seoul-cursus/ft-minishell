@@ -6,7 +6,7 @@
 /*   By: hkim2 <hkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 21:49:13 by hkim2             #+#    #+#             */
-/*   Updated: 2022/05/27 19:32:19 by hkim2            ###   ########.fr       */
+/*   Updated: 2022/05/27 20:17:08 by hkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,11 @@ int	get_cmd_size(t_cmd *cmd_list)
 
 void	exec_pipe(t_cmd *cmd_list, char ***env, int in_dup, int out_dup)
 {
+	(void)in_dup;
 	if (is_builtin(cmd_list->cmdline[0].cmd))
-		execute_builtin_pipe(cmd_list, env, in_dup, out_dup);
+		execute_builtin_pipe(cmd_list, env, out_dup);
 	else
-		execute_cmd_pipe(cmd_list, env, in_dup, out_dup);
+		execute_cmd_pipe(cmd_list, env, out_dup);
 }
 
 void	exec_without_pipe(t_cmd *cmd_list, char ***env, int in_dup, int out_dup)
@@ -57,7 +58,7 @@ void	exec_without_pipe(t_cmd *cmd_list, char ***env, int in_dup, int out_dup)
 		execute_cmd(cmd_list, env, in_dup, out_dup);
 }
 
-int		check_path(t_cmd *cmd_list, char ***path, char **cmd, char **env)
+int	check_path(t_cmd *cmd_list, char ***path, char **cmd, char **env)
 {
 	int	status;
 

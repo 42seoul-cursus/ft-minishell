@@ -6,14 +6,13 @@
 /*   By: hkim2 <hkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 19:43:23 by hkim2             #+#    #+#             */
-/*   Updated: 2022/05/27 19:32:51 by hkim2            ###   ########.fr       */
+/*   Updated: 2022/05/27 20:32:47 by hkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	execute_cmd_pipe(t_cmd *cmd_list, char ***env,
-		int stdin_dup, int stdout_dup)
+void	execute_cmd_pipe(t_cmd *cmd_list, char ***env, int stdout_dup)
 {
 	char	**path;
 	char	*cmd;
@@ -38,12 +37,11 @@ void	execute_cmd_pipe(t_cmd *cmd_list, char ***env,
 			dup2(stdout_dup, STDOUT_FILENO);
 		dup2(cmd_list->pip[0], STDIN_FILENO);
 		waitpid(pid, &cmd_list->status, 0);
-		close_pipe(cmd_list);
-		set_child_process_status(cmd_list, env);
+		set_parent_process_status(cmd_list, env);
 	}
 }
 
-void	execute_builtin_pipe(t_cmd *cmd_list, char ***env, int stdin_dup, int stdout_dup)
+void	execute_builtin_pipe(t_cmd *cmd_list, char ***env, int stdout_dup)
 {
 	pid_t	pid;
 
@@ -111,8 +109,6 @@ int	execute(t_cmd *cmd_list, char ***env)
 
 	stdin_dup = dup(0);
 	stdout_dup = dup(1);
-	//dup2(stdin_dup, STDIN_FILENO);
-	//dup2(stdout_dup, STDOUT_FILENO);
 	pre_init(cmd_list);
 	while (cmd_list)
 	{	

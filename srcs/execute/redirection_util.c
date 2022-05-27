@@ -6,7 +6,7 @@
 /*   By: hkim2 <hkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 23:17:21 by hkim2             #+#    #+#             */
-/*   Updated: 2022/05/27 16:51:52 by hkim2            ###   ########.fr       */
+/*   Updated: 2022/05/27 20:16:03 by hkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,6 @@ int	check_syntax(t_cmd *cmd_list)
 
 int	pre_check(t_cmd *cmd_list, char ***env, int stdin_dup, int stdout_dup)
 {
-	int	error;
-
 	if (check_pipe_syntax(cmd_list))
 	{
 		set_error_status(env, 1);
