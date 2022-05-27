@@ -6,11 +6,25 @@
 /*   By: jeonghwl <jeonghwl@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 13:55:02 by jeonghwl          #+#    #+#             */
-/*   Updated: 2022/05/24 20:50:00 by jeonghwl         ###   ########.fr       */
+/*   Updated: 2022/05/27 19:41:00 by jeonghwl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+int	ft_redir_chk(char *str)
+{
+	size_t	str_len;
+
+	str_len = ft_strlen(str);
+	if (!ft_strncmp("<<", str, str_len) || \
+			!ft_strncmp(">>", str, str_len) || \
+			!ft_strncmp("<", str, str_len) || \
+			!ft_strncmp(">", str, str_len))
+		return (1);
+	else
+		return (0);
+}
 
 int	ft_if_question(char *input_token, char ***output_token, char **envp)
 {
