@@ -6,7 +6,7 @@
 /*   By: hkim2 <hkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 19:43:23 by hkim2             #+#    #+#             */
-/*   Updated: 2022/05/27 15:09:07 by hkim2            ###   ########.fr       */
+/*   Updated: 2022/05/27 16:34:56 by hkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,8 @@ int	execute(t_cmd *cmd_list, char ***env)
 
 	stdin_dup = dup(0);
 	stdout_dup = dup(1);
+	dup2(stdin_dup, STDIN_FILENO);
+	dup2(stdout_dup, STDOUT_FILENO);
 	pre_init(cmd_list);
 	while (cmd_list)
 	{	

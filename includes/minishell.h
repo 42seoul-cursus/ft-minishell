@@ -6,7 +6,7 @@
 /*   By: hkim2 <hkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 13:57:07 by jeonghwl          #+#    #+#             */
-/*   Updated: 2022/05/27 01:50:49 by hkim2            ###   ########.fr       */
+/*   Updated: 2022/05/27 16:52:01 by hkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -276,12 +276,12 @@ int					is_numeric(char *cmd);
 int					redirewction_out(t_cmd *ccmd_list, int i);
 int					redirection_in(t_cmd *ccmd_list, int i);
 int					redirection_out_append(t_cmd *ccmd_list, int i);
-int					redirection_heredoc(t_cmd *ccmd_list, int i);
-int					set_redirection(t_cmd *ccmd_list, int i);
+int					redirection_heredoc(t_cmd *ccmd_list, int i, int in, int out);
+int					set_redirection(t_cmd *ccmd_list, int i, int in, int out);
 
 //execute/redirection_util.c
 int					parse_cmd_without_ridir(t_cmd *cmd_list, int non_redir_count);
-int					check_redirection(t_cmd *cmd_list);
+int					check_redirection(t_cmd *cmd_list, int in, int out);
 int					pre_check(t_cmd *cmd_list, char ***env, int stdin_dup, int stdout_dup);
 int					print_syntax_error();
 

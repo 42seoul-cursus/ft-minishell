@@ -6,7 +6,7 @@
 /*   By: hkim2 <hkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 23:13:05 by hkim2             #+#    #+#             */
-/*   Updated: 2022/05/25 20:32:55 by hkim2            ###   ########.fr       */
+/*   Updated: 2022/05/27 17:14:13 by hkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,15 @@ int	redirection_out_append(t_cmd *cmd_list, int i)
 	return (EXIT_SUCCESS);
 }
 
-int	redirection_heredoc(t_cmd *cmd_list, int i)
+int	redirection_heredoc(t_cmd *cmd_list, int i, int in, int out)
 {
 	int		fd;
 	char	*str;
+	int		tmp_fd;
 
+	tmp_fd = dup(STDOUT_FILENO);
+	dup2(out, STDOUT_FILENO);
+	dup2(in, STDIN_FILENO);
 	fd = open(HEREDOC, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (fd == -1)
 		return (print_file_error(cmd_list->cmdline[i + 1].cmd));
@@ -73,6 +77,7 @@ int	redirection_heredoc(t_cmd *cmd_list, int i)
 		free(str);
 	}
 	close(fd);
+	dup2(tmp_fd, STDOUT_FILENO);
 	fd = open(HEREDOC, O_RDONLY, 0644);
 	if (fd == -1)
 		return (print_file_error(cmd_list->cmdline[i + 1].cmd));
@@ -82,16 +87,17 @@ int	redirection_heredoc(t_cmd *cmd_list, int i)
 	return (EXIT_SUCCESS);
 }
 
-int	set_redirection(t_cmd *cmd_list, int i)
+int	set_redirection(t_cmd *cmd_list, int i, int in, int out)
 {
 	if (ft_strlen(cmd_list->cmdline[i].cmd) > 2)
 		return (EXIT_FAILURE);
 	if (ft_strncmp(cmd_list->cmdline[i].cmd, ">", 2) == 0)
 		return (redirection_out(cmd_list, i));
 	else if (ft_strncmp(cmd_list->cmdline[i].cmd, "<<", 3) == 0)
-		return (redirection_heredoc(cmd_list, i));
+		return (redirection_heredoc(cmd_list, i, in, out));
 	else if (ft_strncmp(cmd_list->cmdline[i].cmd, ">>", 3) == 0)
 		return (redirection_out_append(cmd_list, i));
 	else if (ft_strncmp(cmd_list->cmdline[i].cmd, "<", 2) == 0)
 		return (redirection_in(cmd_list, i));
+	return (EXIT_SUCCESS);
 }

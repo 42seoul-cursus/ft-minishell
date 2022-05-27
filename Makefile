@@ -6,7 +6,7 @@
 #    By: hkim2 <hkim2@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/12 14:11:43 by jeonghwl          #+#    #+#              #
-#    Updated: 2022/05/25 20:33:22 by hkim2            ###   ########.fr        #
+#    Updated: 2022/05/27 16:24:54 by hkim2            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 CC 				= gcc
 RM				= rm -rf
 #-Werror을 하면 not uses가 떠서 잠시 주석처리
-CFLAGS 			= -Wall -Wextra -g -fsanitize=address -Werror
+CFLAGS 			= -Wall -Wextra -g -fsanitize=address# -Werror
 NAME 			= minishell
 
 READLINE_LIB 	= -lreadline -L/usr/local/opt/readline/lib
