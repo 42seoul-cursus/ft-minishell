@@ -6,7 +6,7 @@
 /*   By: hkim2 <hkim2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 23:17:21 by hkim2             #+#    #+#             */
-/*   Updated: 2022/05/27 20:16:03 by hkim2            ###   ########.fr       */
+/*   Updated: 2022/05/29 19:53:16 by hkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,11 @@ int	pre_check(t_cmd *cmd_list, char ***env, int stdin_dup, int stdout_dup)
 	if (check_redirection(cmd_list, stdin_dup, stdout_dup))
 	{
 		set_error_status(env, 1);
+		return (EXIT_FAILURE);
+	}
+	if (cmd_list->cmdline[0].cmd == NULL)
+	{
+		set_error_status(env, 0);
 		return (EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);
